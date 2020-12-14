@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  javaApi: 'http://localhost:8080/',
 };

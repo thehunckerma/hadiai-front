@@ -1,0 +1,34 @@
+ion-content {
+  width: 100%;
+}
+
+form {
+  max-width: 600px;
+  margin: auto;
+}
+
+#big-logo {
+  height: 40vh;
+  min-height: 250px;
+  max-height: 500px;
+}
+
+.input-group {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.errors {
+  font-size: small;
+  color: #fff;
+  background: var(--ion-color-danger);
+  padding-left: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.input-group {
+  border-radius: 0;
+}

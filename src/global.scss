@@ -1,12 +1,87 @@
 // http://ionicframework.com/docs/theming/
-@import "~@ionic/angular/css/core.css";
-@import "~@ionic/angular/css/normalize.css";
-@import "~@ionic/angular/css/structure.css";
-@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/core.css';
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
 
-@import "~@ionic/angular/css/padding.css";
-@import "~@ionic/angular/css/float-elements.css";
-@import "~@ionic/angular/css/text-alignment.css";
-@import "~@ionic/angular/css/text-transformation.css";
-@import "~@ionic/angular/css/flex-utils.css";
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
 
+ion-button {
+  --border-radius: 0;
+}
+
+:root {
+  --ion-color-leaf: #a7eddf;
+  --ion-color-leaf-rgb: 167, 237, 223;
+  --ion-color-leaf-contrast: #000000;
+  --ion-color-leaf-contrast-rgb: 0, 0, 0;
+  --ion-color-leaf-shade: #93d1c4;
+  --ion-color-leaf-tint: #b0efe2;
+}
+
+.ion-color-leaf {
+  --ion-color-base: var(--ion-color-leaf);
+  --ion-color-base-rgb: var(--ion-color-leaf-rgb);
+  --ion-color-contrast: var(--ion-color-leaf-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-leaf-contrast-rgb);
+  --ion-color-shade: var(--ion-color-leaf-shade);
+  --ion-color-tint: var(--ion-color-leaf-tint);
+}
+
+:root {
+  --ion-color-cornflower: #98beec;
+  --ion-color-cornflower-rgb: 152, 190, 236;
+  --ion-color-cornflower-contrast: #000000;
+  --ion-color-cornflower-contrast-rgb: 0, 0, 0;
+  --ion-color-cornflower-shade: #86a7d0;
+  --ion-color-cornflower-tint: #a2c5ee;
+}
+
+.ion-color-cornflower {
+  --ion-color-base: var(--ion-color-cornflower);
+  --ion-color-base-rgb: var(--ion-color-cornflower-rgb);
+  --ion-color-contrast: var(--ion-color-cornflower-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-cornflower-contrast-rgb);
+  --ion-color-shade: var(--ion-color-cornflower-shade);
+  --ion-color-tint: var(--ion-color-cornflower-tint);
+}
+
+:root {
+  --ion-color-lavender: #a28bdb;
+  --ion-color-lavender-rgb: 162, 139, 219;
+  --ion-color-lavender-contrast: #000000;
+  --ion-color-lavender-contrast-rgb: 0, 0, 0;
+  --ion-color-lavender-shade: #8f7ac1;
+  --ion-color-lavender-tint: #ab97df;
+}
+
+.ion-color-lavender {
+  --ion-color-base: var(--ion-color-lavender);
+  --ion-color-base-rgb: var(--ion-color-lavender-rgb);
+  --ion-color-contrast: var(--ion-color-lavender-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-lavender-contrast-rgb);
+  --ion-color-shade: var(--ion-color-lavender-shade);
+  --ion-color-tint: var(--ion-color-lavender-tint);
+}
+
+:root {
+  --ion-color-gray: #ededed;
+  --ion-color-gray-rgb: 237, 237, 237;
+  --ion-color-gray-contrast: #000000;
+  --ion-color-gray-contrast-rgb: 0, 0, 0;
+  --ion-color-gray-shade: #d1d1d1;
+  --ion-color-gray-tint: #efefef;
+}
+
+.ion-color-gray {
+  --ion-color-base: var(--ion-color-gray);
+  --ion-color-base-rgb: var(--ion-color-gray-rgb);
+  --ion-color-contrast: var(--ion-color-gray-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-gray-contrast-rgb);
+  --ion-color-shade: var(--ion-color-gray-shade);
+  --ion-color-tint: var(--ion-color-gray-tint);
+}
