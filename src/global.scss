@@ -10,14 +10,73 @@
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-transition-delay: 99999s;
+  transition-delay: 99999s;
+  font-size: 40px;
+}
+
+@keyframes autofill {
+  100% {
+    background: transparent;
+    color: inherit;
+  }
+}
+
+@-webkit-keyframes autofill {
+  100% {
+    background: transparent;
+    color: inherit;
+  }
+}
+
 ion-button {
   --border-radius: 0;
 }
 
 :root {
+  --ion-color-danger: #ff7777;
+  --ion-color-danger-rgb: 255, 128, 128;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 0, 0, 0;
+  --ion-color-danger-shade: #e07171;
+  --ion-color-danger-tint: #ff8d8d;
+}
+
+.ion-color-danger {
+  --ion-color-base: var(--ion-color-danger);
+  --ion-color-base-rgb: var(--ion-color-danger-rgb);
+  --ion-color-contrast: var(--ion-color-danger-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-danger-contrast-rgb);
+  --ion-color-shade: var(--ion-color-danger-shade);
+  --ion-color-tint: var(--ion-color-danger-tint);
+}
+
+:root {
+  --ion-color-success: #5dfeb0;
+  --ion-color-success-rgb: 93, 254, 176;
+  --ion-color-success-contrast: #494949;
+  --ion-color-success-contrast-rgb: 0, 0, 0;
+  --ion-color-success-shade: #52e09b;
+  --ion-color-success-tint: #9fffb4;
+}
+
+.ion-color-success {
+  --ion-color-base: var(--ion-color-success);
+  --ion-color-base-rgb: var(--ion-color-success-rgb);
+  --ion-color-contrast: var(--ion-color-success-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-success-contrast-rgb);
+  --ion-color-shade: var(--ion-color-success-shade);
+  --ion-color-tint: var(--ion-color-success-tint);
+}
+
+:root {
   --ion-color-leaf: #a7eddf;
   --ion-color-leaf-rgb: 167, 237, 223;
-  --ion-color-leaf-contrast: #000000;
+  --ion-color-leaf-contrast: #494949;
   --ion-color-leaf-contrast-rgb: 0, 0, 0;
   --ion-color-leaf-shade: #93d1c4;
   --ion-color-leaf-tint: #b0efe2;

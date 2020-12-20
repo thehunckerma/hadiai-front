@@ -6,11 +6,16 @@
 
 <ion-content>
   <ion-img src="assets/icon/logo_transparent.png" id="big-logo"></ion-img>
-  <form (ngSubmit)="login()" [formGroup]="credentials">
+  <form
+    (ngSubmit)="login()"
+    [formGroup]="credentials"
+    (keyup.enter)="login()"
+    autocomplete="off"
+  >
     <div class="input-group">
       <ion-item>
         <ion-input
-          type="text"
+          type="new-password"
           placeholder="Username"
           formControlName="username"
         ></ion-input>
@@ -42,8 +47,15 @@
     <ion-button type="submit" expand="block" [disabled]="!credentials.valid"
       >Log in</ion-button
     >
-    <ion-button type="button" expand="block" color="light" fill="clear"
-      >Not yet a member? Sign up!
+    <ion-button
+      type="button"
+      expand="block"
+      color="medium"
+      fill="clear"
+      class="ion-margin-top"
+      routerLink="/signup"
+    >
+      Not yet a member? Sign up!
     </ion-button>
   </form>
 </ion-content>

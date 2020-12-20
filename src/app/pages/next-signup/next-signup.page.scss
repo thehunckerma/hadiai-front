@@ -1,0 +1,30 @@
+ion-label {
+  font-size: large;
+}
+ion-card {
+  max-width: 500px;
+}
+ion-list {
+  width: 90%;
+}
+
+#cam-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ion-button {
+  color: white !important;
+}
+
+#image-icon {
+  max-width: 200px;
+  margin: 30px auto;
+}
+
+#form {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+}

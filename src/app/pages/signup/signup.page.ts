@@ -5,11 +5,11 @@ import { AlertController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  selector: 'app-signup',
+  templateUrl: './signup.page.html',
+  styleUrls: ['./signup.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class SignupPage implements OnInit {
   credentials: FormGroup;
 
   constructor(
@@ -22,24 +22,31 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.credentials = this.fb.group({
+      fullname: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
+  get fullname() {
+    return this.credentials.get('fullname');
+  }
+  get email() {
+    return this.credentials.get('email');
+  }
   get username() {
     return this.credentials.get('username');
   }
-
   get password() {
     return this.credentials.get('password');
   }
 
-  async login() {
+  async signup() {
     const loading = await this.loadingController.create();
     await loading.present();
 
-    this.authService.login(this.credentials.value).subscribe(
+    this.authService.signup(this.credentials.value).subscribe(
       async () => {
         await loading.dismiss();
         this.router.navigateByUrl('/home', { replaceUrl: true });
@@ -47,7 +54,7 @@ export class LoginPage implements OnInit {
       async (res) => {
         await loading.dismiss();
         const alert = await this.alertController.create({
-          header: 'Login failed',
+          header: 'Invalid credentials, please try again!',
           message: res.error.error,
           buttons: ['OK'],
         });

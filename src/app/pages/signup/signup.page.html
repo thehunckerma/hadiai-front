@@ -1,0 +1,91 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Sign up</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-img src="assets/icon/logo_transparent.png" id="big-logo"></ion-img>
+  <form
+    (ngSubmit)="signup()"
+    [formGroup]="credentials"
+    (keyup.enter)="signup()"
+    autocomplete="off"
+  >
+    <div class="input-group">
+      <ion-item>
+        <ion-input
+          type="name"
+          placeholder="Full name"
+          formControlName="fullname"
+        ></ion-input>
+      </ion-item>
+      <div
+        *ngIf="(fullname?.dirty || fullname?.touched) && fullname?.errors"
+        class="errors"
+      >
+        <span *ngIf="fullname?.errors?.required">Full name is required</span>
+      </div>
+      <ion-item>
+        <ion-input
+          type="name"
+          placeholder="User name"
+          formControlName="username"
+        ></ion-input>
+      </ion-item>
+      <div
+        *ngIf="(username?.dirty || username?.touched) && username?.errors"
+        class="errors"
+      >
+        <span *ngIf="username?.errors?.required">User name is required</span>
+      </div>
+      <ion-item>
+        <ion-input
+          type="email"
+          placeholder="E-mail"
+          formControlName="email"
+        ></ion-input>
+      </ion-item>
+      <div
+        *ngIf="(email?.dirty || email?.touched) && email?.errors"
+        class="errors"
+      >
+        <span *ngIf="email?.errors?.required">E-mail is required</span>
+        <span *ngIf="email?.errors?.email">Email is invalid</span>
+      </div>
+      <ion-item>
+        <ion-input
+          type="password"
+          placeholder="Password"
+          formControlName="password"
+        ></ion-input>
+      </ion-item>
+      <div
+        *ngIf="(password?.dirty || password?.touched) && password?.errors"
+        class="errors"
+      >
+        <span *ngIf="password?.errors?.required">Password is required</span>
+        <span *ngIf="password?.errors?.minlength"
+          >Password must be at least 6 characters</span
+        >
+      </div>
+    </div>
+
+    <ion-button type="submit" expand="block" [disabled]="!credentials.valid"
+      >Next</ion-button
+    >
+    <ion-button
+      type="button"
+      expand="block"
+      color="medium"
+      fill="clear"
+      class="ion-margin-top"
+      routerLink="/login"
+    >
+      Already a member Login Here
+    </ion-button>
+  </form>
+</ion-content>

@@ -36,15 +36,15 @@ const routes: Routes = [
         ],
       },
       {
-        path: '',
-        redirectTo: '/tabs/tab1',
+        path: '**',
+        redirectTo: '/home/tab1',
         pathMatch: 'full',
       },
     ],
   },
   {
-    path: '',
-    redirectTo: '/tabs/tab1',
+    path: '**',
+    redirectTo: '/home/tab1',
     pathMatch: 'full',
   },
 ];

@@ -1,0 +1,98 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Sign Up</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="cam-container">
+    <ion-card>
+      <div *ngIf="!(errors?.length > 0) && showWebcam">
+        <webcam
+          [height]="500"
+          [width]="500"
+          [trigger]="triggerObservable"
+          (imageCapture)="handleImage($event)"
+          [allowCameraSwitch]="allowCameraSwitch"
+          [switchCamera]="nextWebcamObservable"
+          [videoOptions]="videoOptions"
+          [imageQuality]="1"
+          (cameraSwitched)="cameraWasSwitched($event)"
+          (initError)="handleInitError($event)"
+        ></webcam>
+      </div>
+      <img
+        *ngIf="errors?.length > 0 || !showWebcam"
+        src="assets/icon/webcam.svg"
+        id="image-icon"
+      />
+      <ion-card-header>
+        <ion-card-title>Webcam</ion-card-title>
+        <ion-card-subtitle>
+          Take a snapshot for you profile picture
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-item class="ion-activated">
+        <ion-button (click)="triggerSnapshot();" color="success">
+          Take A Snapshot
+        </ion-button>
+        <ion-button (click)="toggleWebcam();" color="danger">
+          Toggle Webcam
+        </ion-button>
+        <ion-button (click)="showNextWebcam(deviceId);" color="primary">
+          Activate
+        </ion-button>
+        <ion-button
+          (click)="showNextWebcam(true);"
+          color="primary"
+          [disabled]="!multipleWebcamsAvailable"
+        >
+          Next Webcam
+        </ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox slot="start" [(ngModel)]="allowCameraSwitch">
+        </ion-checkbox>
+        <ion-label> Allow Camera Switch</ion-label>
+      </ion-item>
+      <ion-card-content>
+        Camera ID (for debuging) : {{deviceId ? deviceId : 'not found'}}
+        <h4 *ngIf="errors.length > 0">Errors :</h4>
+        <ul *ngFor="let error of errors">
+          <li>Message : {{error?.message}}</li>
+          <li>Media Stream Error : {{error?.mediaStreamError | json}}</li>
+        </ul>
+      </ion-card-content>
+      <ion-list>
+        <ion-radio-group value="biff">
+          <ion-list-header>
+            <ion-label>Which one are you?</ion-label>
+          </ion-list-header>
+
+          <ion-item>
+            <ion-label>Student</ion-label>
+            <ion-radio slot="start" value="biff"></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Teacher</ion-label>
+            <ion-radio slot="start" value="griff"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+    </ion-card>
+    <ion-card *ngIf="webcamImage">
+      <div>
+        <img [src]="webcamImage.imageAsDataUrl" />
+      </div>
+      <ion-card-header>
+        <ion-card-title>Snapshot</ion-card-title>
+        <ion-card-subtitle>
+          If the image is fine you can finish the signup, otherwise take another
+          snap.
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-button expand="block">Finish</ion-button>
+    </ion-card>
+  </div>
+</ion-content>

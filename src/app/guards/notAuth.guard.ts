@@ -6,7 +6,7 @@ import { filter, map, take } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanLoad {
+export class NotAuthGuard implements CanLoad {
   constructor(
     private authService: AuthenticationService,
     private router: Router
@@ -18,10 +18,10 @@ export class AuthGuard implements CanLoad {
       take(1),
       map((isAuthenticated) => {
         if (isAuthenticated) {
-          return true;
-        } else {
-          this.router.navigateByUrl('/login');
+          this.router.navigateByUrl('/');
           return false;
+        } else {
+          return true;
         }
       })
     );

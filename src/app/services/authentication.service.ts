@@ -5,7 +5,7 @@ import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 
-import { LoginResp } from '../interfaces/auth';
+import { AuthResp } from '../interfaces/auth';
 
 import { Plugins } from '@capacitor/core';
 const { Storage } = Plugins;
@@ -39,9 +39,27 @@ export class AuthenticationService {
 
   login(credentials: { username: string; password: string }): Observable<void> {
     return this.http
-      .post(`${environment.javaApi}/auth/signin`, credentials)
+      .post<AuthResp>(`${environment.javaApi}/auth/signin`, credentials)
       .pipe(
-        map((data: LoginResp) => data.accessToken),
+        map((data: AuthResp) => data.accessToken),
+        switchMap((token) => {
+          return from(Storage.set({ key: TOKEN_KEY, value: token }));
+        }),
+        tap((_) => {
+          this.isAuthenticated.next(true);
+        })
+      );
+  }
+
+  signup(credentials: {
+    email: string;
+    username: string;
+    password: string;
+  }): Observable<void> {
+    return this.http
+      .post<AuthResp>(`${environment.javaApi}/auth/signup`, credentials)
+      .pipe(
+        map((data: AuthResp) => data.accessToken),
         switchMap((token) => {
           return from(Storage.set({ key: TOKEN_KEY, value: token }));
         }),
