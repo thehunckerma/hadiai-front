@@ -10,9 +10,9 @@
 <ion-content>
   <ion-img src="assets/icon/logo_transparent.png" id="big-logo"></ion-img>
   <form
-    (ngSubmit)="signup()"
+    (ngSubmit)="next()"
     [formGroup]="credentials"
-    (keyup.enter)="signup()"
+    (keyup.enter)="next()"
     autocomplete="off"
   >
     <div class="input-group">
@@ -74,7 +74,11 @@
       </div>
     </div>
 
-    <ion-button type="submit" expand="block" [disabled]="!credentials.valid"
+    <ion-button
+      (click)="next()"
+      type="submit"
+      expand="block"
+      [disabled]="!credentials.valid"
       >Next</ion-button
     >
     <ion-button

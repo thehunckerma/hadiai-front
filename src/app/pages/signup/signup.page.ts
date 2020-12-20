@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from './../../services/authentication.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
+
+import { Plugins } from '@capacitor/core';
+const { Storage } = Plugins;
 
 @Component({
   selector: 'app-signup',
@@ -12,13 +13,9 @@ import { Router } from '@angular/router';
 export class SignupPage implements OnInit {
   credentials: FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthenticationService,
-    private alertController: AlertController,
-    private router: Router,
-    private loadingController: LoadingController
-  ) {}
+  constructor(private fb: FormBuilder, private router: Router) {
+    Storage.remove({ key: 'stringified-creds' }).then();
+  }
 
   ngOnInit() {
     this.credentials = this.fb.group({
@@ -42,25 +39,13 @@ export class SignupPage implements OnInit {
     return this.credentials.get('password');
   }
 
-  async signup() {
-    const loading = await this.loadingController.create();
-    await loading.present();
-
-    this.authService.signup(this.credentials.value).subscribe(
-      async () => {
-        await loading.dismiss();
-        this.router.navigateByUrl('/home', { replaceUrl: true });
-      },
-      async (res) => {
-        await loading.dismiss();
-        const alert = await this.alertController.create({
-          header: 'Invalid credentials, please try again!',
-          message: res.error.error,
-          buttons: ['OK'],
-        });
-
-        await alert.present();
-      }
-    );
+  next(): void {
+    if (this.credentials.valid) {
+      const stringifiedCreds = JSON.stringify(this.credentials.value);
+      Storage.set({
+        key: 'stringified-creds',
+        value: stringifiedCreds,
+      }).then(() => this.router.navigateByUrl('/next', { replaceUrl: true }));
+    }
   }
 }

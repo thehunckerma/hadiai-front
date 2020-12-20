@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Platform, Events } from '@ionic/angular';
 import { ElectronService } from 'ngx-electron';
-import { DataService } from '../../data.service';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 
@@ -11,36 +9,14 @@ import { AuthenticationService } from '../../services/authentication.service';
   styleUrls: ['tab1.page.scss'],
 })
 export class Tab1Page implements OnInit {
-  public db: any;
-  public dbInfo: Object;
   public electron: any;
   constructor(
     private authService: AuthenticationService,
     private router: Router,
-    public electronService: ElectronService,
-    private data: DataService,
-    private platform: Platform,
-    private events: Events
-  ) {
-    this.events.subscribe('database:available', (info) => {
-      console.log('Database is now available');
-      this.db = this.data.db;
-      this.dbInfo = info;
-    });
-  }
+    public electronService: ElectronService
+  ) {}
 
-  ngOnInit() {
-    const ctx = this;
-    ctx.electron = ctx.electronService;
-
-    if (ctx.electron.isElectronApp) {
-      ctx.db = ctx.data.db;
-      ctx.data.db
-        .info()
-        .then((info) => (ctx.dbInfo = info))
-        .catch((err) => console.log(err));
-    }
-  }
+  ngOnInit() {}
 
   async logout() {
     await this.authService.logout();

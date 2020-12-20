@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, tap, switchMap } from 'rxjs/operators';
-import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, from, concat } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 
@@ -10,13 +10,11 @@ import { AuthResp } from '../interfaces/auth';
 import { Plugins } from '@capacitor/core';
 const { Storage } = Plugins;
 
-const TOKEN_KEY = 'my-token';
-
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
-  // Init with null to filter out the first value in a guard!
+  // Init with null to filter out the first value in a guard
   isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     null
   );
@@ -27,9 +25,8 @@ export class AuthenticationService {
   }
 
   async loadToken() {
-    const token = await Storage.get({ key: TOKEN_KEY });
+    const token = await Storage.get({ key: 'accessToken' });
     if (token && token.value) {
-      console.log('set token: ', token.value);
       this.token = token.value;
       this.isAuthenticated.next(true);
     } else {
@@ -39,15 +36,10 @@ export class AuthenticationService {
 
   login(credentials: { username: string; password: string }): Observable<void> {
     return this.http
-      .post<AuthResp>(`${environment.javaApi}/auth/signin`, credentials)
+      .post<AuthResp>(`${environment.JAVA_API}/auth/signin`, credentials)
       .pipe(
-        map((data: AuthResp) => data.accessToken),
-        switchMap((token) => {
-          return from(Storage.set({ key: TOKEN_KEY, value: token }));
-        }),
-        tap((_) => {
-          this.isAuthenticated.next(true);
-        })
+        switchMap(this.setUserData),
+        tap(() => this.isAuthenticated.next(true))
       );
   }
 
@@ -57,20 +49,34 @@ export class AuthenticationService {
     password: string;
   }): Observable<void> {
     return this.http
-      .post<AuthResp>(`${environment.javaApi}/auth/signup`, credentials)
+      .post<AuthResp>(`${environment.JAVA_API}/auth/signup`, credentials)
       .pipe(
-        map((data: AuthResp) => data.accessToken),
-        switchMap((token) => {
-          return from(Storage.set({ key: TOKEN_KEY, value: token }));
-        }),
-        tap((_) => {
-          this.isAuthenticated.next(true);
-        })
+        switchMap(this.setUserData),
+        tap(() => this.isAuthenticated.next(true))
       );
   }
 
   logout(): Promise<void> {
     this.isAuthenticated.next(false);
-    return Storage.remove({ key: TOKEN_KEY });
+    return Storage.remove({ key: 'accessToken' });
+  }
+
+  private setUserData(data: AuthResp): Observable<void> {
+    let observable$: Observable<void> = from(
+      Storage.set({ key: 'roles', value: data['roles'][0] })
+    );
+    for (const element in data) {
+      if (Object.prototype.hasOwnProperty.call(data, element)) {
+        if (element === 'roles') {
+          continue;
+        }
+        const userData = data[element];
+        observable$ = concat(
+          observable$,
+          from(Storage.set({ key: element, value: userData }))
+        );
+      }
+    }
+    return observable$;
   }
 }

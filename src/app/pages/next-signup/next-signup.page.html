@@ -1,16 +1,54 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Sign Up</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Sign up</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="shouldLoad">
   <div id="cam-container">
-    <ion-card>
-      <div *ngIf="!(errors?.length > 0) && showWebcam">
+    <ion-card id="creds-card">
+      <img *ngIf="originalImageAsDataUrl" [src]="originalImageAsDataUrl" />
+      <img
+        *ngIf="!originalImageAsDataUrl"
+        src="assets/icon/user.svg"
+        id="profile-icon"
+      />
+      <ion-card-header>
+        <ion-card-title><strong>Your profile</strong></ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item>
+            <ion-label>
+              <strong>Full Name : </strong> {{ credentials?.fullname }}
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <strong>E-mail : </strong> {{ credentials?.email }}
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <strong>Username : </strong> {{ credentials?.username }}
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <strong>Password : </strong> {{ hiddenPassword }}
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+    <ion-card *ngIf="!showTraining">
+      <div *ngIf="!(errors?.length > 0) && showWebcam && !webcamImage">
         <webcam
           [height]="500"
-          [width]="500"
+          [width]="windowWidth > 500 ? 500: (windowWidth - 10)"
           [trigger]="triggerObservable"
           (imageCapture)="handleImage($event)"
           [allowCameraSwitch]="allowCameraSwitch"
@@ -21,25 +59,57 @@
           (initError)="handleInitError($event)"
         ></webcam>
       </div>
+      <div>
+        <img *ngIf="webcamImage" [src]="imageAsDataUrl" #snapShot />
+      </div>
       <img
         *ngIf="errors?.length > 0 || !showWebcam"
         src="assets/icon/webcam.svg"
         id="image-icon"
       />
-      <ion-card-header>
+      <ion-card-header *ngIf="!webcamImage && showWebcam">
         <ion-card-title>Webcam</ion-card-title>
         <ion-card-subtitle>
-          Take a snapshot for you profile picture
+          Get closer to your webcam and take a snapshot for you profile picture
         </ion-card-subtitle>
       </ion-card-header>
-      <ion-item class="ion-activated">
-        <ion-button (click)="triggerSnapshot();" color="success">
+      <ion-card-header *ngIf="errors?.length > 0 || !showWebcam">
+        <ion-card-title>Webcam</ion-card-title>
+        <ion-card-subtitle>
+          Activate your webcam in order to take a snapshot.
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-header *ngIf="webcamImage">
+        <ion-card-title>Snapshot</ion-card-title>
+        <ion-card-subtitle *ngIf="isImageValid" color="primary">
+          If the image is valid, if it looks good to you, you can {{ radio ===
+          'student' ? 'proceed' : 'finish the signup' }}, otherwise take another
+          one.
+        </ion-card-subtitle>
+        <ion-card-subtitle *ngIf="!isImageValid" color="danger">
+          The image is not valid. There should be exactly one face in front of
+          the webcam.<br />(If the app detects faces in the non-face region get
+          closer to the webcam or change your position and try again).
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-item class="ion-activated" *ngIf="!webcamImage">
+        <ion-button
+          [disabled]="!showWebcam || errors?.length > 0"
+          (click)="triggerSnapshot();"
+          color="success"
+        >
           Take A Snapshot
         </ion-button>
         <ion-button (click)="toggleWebcam();" color="danger">
           Toggle Webcam
         </ion-button>
-        <ion-button (click)="showNextWebcam(deviceId);" color="primary">
+      </ion-item>
+      <ion-item class="ion-activated" *ngIf="!webcamImage">
+        <ion-button
+          [disabled]="!showWebcam"
+          (click)="showNextWebcam(deviceId);"
+          color="primary"
+        >
           Activate
         </ion-button>
         <ion-button
@@ -50,12 +120,13 @@
           Next Webcam
         </ion-button>
       </ion-item>
-      <ion-item>
+
+      <ion-item *ngIf="!webcamImage">
         <ion-checkbox slot="start" [(ngModel)]="allowCameraSwitch">
         </ion-checkbox>
         <ion-label> Allow Camera Switch</ion-label>
       </ion-item>
-      <ion-card-content>
+      <ion-card-content *ngIf="!webcamImage">
         Camera ID (for debuging) : {{deviceId ? deviceId : 'not found'}}
         <h4 *ngIf="errors.length > 0">Errors :</h4>
         <ul *ngFor="let error of errors">
@@ -63,36 +134,125 @@
           <li>Media Stream Error : {{error?.mediaStreamError | json}}</li>
         </ul>
       </ion-card-content>
-      <ion-list>
-        <ion-radio-group value="biff">
+      <ion-list *ngIf="webcamImage">
+        <ion-radio-group [value]="radio">
           <ion-list-header>
             <ion-label>Which one are you?</ion-label>
           </ion-list-header>
 
           <ion-item>
             <ion-label>Student</ion-label>
-            <ion-radio slot="start" value="biff"></ion-radio>
+            <ion-radio
+              slot="start"
+              value="student"
+              (click)="radio = 'student'"
+            ></ion-radio>
           </ion-item>
 
           <ion-item>
             <ion-label>Teacher</ion-label>
-            <ion-radio slot="start" value="griff"></ion-radio>
+            <ion-radio
+              slot="start"
+              value="teacher"
+              (click)="radio = 'teacher'"
+            ></ion-radio>
           </ion-item>
         </ion-radio-group>
       </ion-list>
+      <ion-item class="ion-activated" *ngIf="webcamImage">
+        <ion-button (click)="resetWebCam();" color="danger"> Reset </ion-button>
+        <ion-button (click)="proceed()" [disabled]="!isImageValid">
+          {{ radio === 'student' ? 'Proceed' : 'Finish' }}
+        </ion-button>
+      </ion-item>
     </ion-card>
-    <ion-card *ngIf="webcamImage">
-      <div>
-        <img [src]="webcamImage.imageAsDataUrl" />
+    <ion-card *ngIf="showTraining">
+      <div *ngIf="!(errors?.length > 0) && showWebcam">
+        <webcam
+          [height]="500"
+          [width]="windowWidth > 500 ? 500: (windowWidth - 10)"
+          [trigger]="triggerObservable"
+          (imageCapture)="handleTrainingImage($event)"
+          [allowCameraSwitch]="allowCameraSwitch"
+          [switchCamera]="nextWebcamObservable"
+          [videoOptions]="videoOptions"
+          [imageQuality]="1"
+          (cameraSwitched)="cameraWasSwitched($event)"
+          (initError)="handleInitError($event)"
+        ></webcam>
       </div>
+      <!-- <div>
+        <img *ngIf="webcamImage" [src]="imageAsDataUrl" #snapShot />
+      </div> -->
+      <img
+        *ngIf="errors?.length > 0 || !showWebcam"
+        src="assets/icon/webcam.svg"
+        id="image-icon"
+      />
       <ion-card-header>
-        <ion-card-title>Snapshot</ion-card-title>
-        <ion-card-subtitle>
-          If the image is fine you can finish the signup, otherwise take another
-          snap.
+        <ion-card-title>Webcam</ion-card-title>
+        <ion-card-subtitle *ngIf="!showWebcam">
+          Activate your webcam in order to start the face recognition process.
+        </ion-card-subtitle>
+        <ion-card-subtitle *ngIf="showWebcam">
+          Start the face recognition process.<br />
+          There should be exactly one face in front of the webcam.<br />If the
+          app fails to detect your face or if it detects faces in the non-face
+          region, get closer to the webcam or change position.
         </ion-card-subtitle>
       </ion-card-header>
-      <ion-button expand="block">Finish</ion-button>
+      <ion-item class="ion-activated" *ngIf="!isImageCollectingFinished">
+        <ion-button
+          [disabled]="!showWebcam || isImageCollectingStarted"
+          (click)="startTakingTrainingImages();"
+          color="success"
+        >
+          Start Face Recognition process
+        </ion-button>
+        <ion-button
+          [disabled]="isImageCollectingStarted"
+          (click)="toggleWebcam();"
+          color="danger"
+        >
+          Toggle Webcam
+        </ion-button>
+      </ion-item>
+      <ion-item class="ion-activated" *ngIf="!isImageCollectingFinished">
+        <ion-button
+          [disabled]="isImageCollectingStarted"
+          (click)="showNextWebcam(deviceId);"
+          color="primary"
+        >
+          Activate
+        </ion-button>
+        <ion-button
+          (click)="showNextWebcam(true);"
+          color="primary"
+          [disabled]="!multipleWebcamsAvailable || isImageCollectingStarted"
+        >
+          Next Webcam
+        </ion-button>
+        <ion-button (click)="cancel();" color="danger">
+          Cancel
+        </ion-button>
+      </ion-item>
+
+      <ion-item *ngIf="!isImageCollectingFinished">
+        <ion-checkbox slot="start" [(ngModel)]="allowCameraSwitch">
+        </ion-checkbox>
+        <ion-label> Allow Camera Switch</ion-label>
+      </ion-item>
+      <ion-card-content *ngIf="!isImageCollectingFinished">
+        Camera ID (for debuging) : {{deviceId ? deviceId : 'not found'}}
+        <h4 *ngIf="errors.length > 0">Errors :</h4>
+        <ul *ngFor="let error of errors">
+          <li>Message : {{error?.message}}</li>
+          <li>Media Stream Error : {{error?.mediaStreamError | json}}</li>
+        </ul>
+      </ion-card-content>
+      <ion-item class="ion-activated" *ngIf="isImageCollectingFinished">
+        <ion-button (click)="proceed()"> Finish </ion-button>
+      </ion-item>
     </ion-card>
   </div>
 </ion-content>

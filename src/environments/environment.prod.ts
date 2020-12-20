@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  javaApi: 'http://localhost:8080/',
+  JAVA_API: 'http://localhost:8080/',
+  FACE_DETECTION_API: 'http://localhost:8000',
 };

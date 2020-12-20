@@ -3,15 +3,19 @@ ion-label {
 }
 ion-card {
   max-width: 500px;
+  margin-left: 5vw;
+  margin-right: 5vw;
 }
 ion-list {
   width: 90%;
 }
 
 #cam-container {
+  min-height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap-reverse;
 }
 
 ion-button {
@@ -20,11 +24,20 @@ ion-button {
 
 #image-icon {
   max-width: 200px;
-  margin: 30px auto;
+  margin: 50px auto;
+}
+
+#profile-icon {
+  max-width: 110px;
+  margin: 60px auto;
 }
 
 #form {
   display: flex;
   justify-content: space-around;
   align-items: flex-end;
+}
+
+#creds-card {
+  width: 100%;
 }

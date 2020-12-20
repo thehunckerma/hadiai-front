@@ -19,7 +19,7 @@ function createWindow() {
     icon: path.join(__dirname, './resources/electron/icons/64x64.png'),
     webPreferences: {
       nodeIntegration: true,
-      // devTools: false, // TODO: Enable this in Prod
+      devTools: true, // TODO: edit this in Prod
     },
   });
 
@@ -35,7 +35,7 @@ function createWindow() {
     );
   }
 
-  // win.webContents.openDevTools();
+  win.webContents.openDevTools();
   win.setMenu(null);
 
   // Emitted when the window is closed.
@@ -46,6 +46,7 @@ function createWindow() {
     win = null;
   });
 }
+
 try {
   // This method will be called when Electron has finished
   // initialization and is ready to create browser windows.

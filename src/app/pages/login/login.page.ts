@@ -48,7 +48,13 @@ export class LoginPage implements OnInit {
         await loading.dismiss();
         const alert = await this.alertController.create({
           header: 'Login failed',
-          message: res.error.error,
+          message: res
+            ? res.error
+              ? res.error.error
+                ? res.error.error
+                : 'Unkown error'
+              : 'Unkown error'
+            : 'Unkown error',
           buttons: ['OK'],
         });
 
