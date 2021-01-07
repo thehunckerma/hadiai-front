@@ -25,10 +25,21 @@ const routes: Routes = [
     canLoad: [NotAuthGuard], // Prevent authenticated users from accessing this page
   },
   {
+    path: 'dashboard',
+    loadChildren: './pages/dashboard/dashboard.module#DashboardPageModule',
+    canLoad: [NotAuthGuard], // Prevent authenticated users from accessing this page
+  },
+  {
+    path: 'profile',
+    loadChildren: './pages/profile/profile.module#ProfilePageModule',
+    canLoad: [NotAuthGuard], // Prevent authenticated users from accessing this page
+  },
+  {
     path: '**',
     redirectTo: '/home/tab1',
     pathMatch: 'full',
   },
+  
 ];
 @NgModule({
   imports: [

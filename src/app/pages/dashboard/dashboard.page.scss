@@ -1,0 +1,19 @@
+#small-logo {
+  width: 4.5%;
+  margin-left: 15px;
+  ion-title {
+    position: relative;
+    display: center;
+  }
+}
+.bar {
+  color: #464050;
+}
+.myItem {
+  display: flex;
+  justify-items: center;
+  justify-content: space-between;
+}
+.ion-card {
+  min-height: 90%;
+}
