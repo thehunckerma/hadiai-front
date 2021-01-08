@@ -1,40 +1,50 @@
 #small-logo {
-  width: 4.5%;
-  margin-left: 15px;
-}
-ion-content {
-  width: 100%;
-}
-.ion-toolbar {
-  color: #4b0082;
+  width: 5%;
+  margin-left: 1rem;
 }
 
-form {
-  max-width: 600px;
-  margin: auto;
+.profile-card {
+  width: 50%;
+  display: block;
+  margin: 0 auto;
 }
 
+.header {
+  height: 200px; // 20vh;
+}
+.avatar {
+  width: 160px; //40vw
+  height: 160px;
+  position: relative;
+  margin: 0 auto;
+}
+img {
+  display: block;
+  border-radius: 50%;
+  position: absolute;
+  bottom: calc(-1 * (80px + 4px)); // -42px;
+  border: 8px;
+  background-color: #fff;
+}
 
-.input-group {
-  background: #fff;
-  border-radius: 10px;
+.card-body {
+  background-color: #ffffff;
+  padding: 30px;
+  height: calc(100vh - (200px + 56px));
   overflow: hidden;
-  margin-bottom: 15px;
+}
+.user-meta {
+  padding-top: 40px;
+}
+.name {
+  font-size: 24px;
+  font-weight: 600;
+  color: #303940;
 }
 
-.errors {
-  font-size: small;
-  color: #fff;
-  background: var(--ion-color-danger);
-  padding-left: 15px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-
-.input-group {
-  border-radius: 0;
-}
-ion-button {
-  margin-left: 0;
-  margin-right: 0;
+.email {
+  font-size: 90%;
+  color: #949ea6;
+  text-transform: uppercase;
+  margin: 0 auto;
 }

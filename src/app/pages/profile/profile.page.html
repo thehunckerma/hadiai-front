@@ -1,97 +1,39 @@
 <ion-header>
   <ion-toolbar color="gray">
+    <ion-row class="ion-justify-content-between"></ion-row>
+    <ion-img src="assets/icon/logo_tran.png" id="small-logo"></ion-img>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
-      
-
     </ion-buttons>
-    <ion-img src="assets/icon/logo_tran.png" id="small-logo"></ion-img>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  
-  <!-- <form
-    (ngSubmit)="next()"
-    [formGroup]="credentials"
-    (keyup.enter)="next()"
-    autocomplete="off"
-  >
-    <div class="input-group">
-      <ion-item>
-        <ion-input
-          type="name"
-          placeholder="Full name"
-          formControlName="fullname"
-        ></ion-input>
-      </ion-item>
-      <div
-        *ngIf="(fullname?.dirty || fullname?.touched) && fullname?.errors"
-        class="errors"
-      >
-        <span *ngIf="fullname?.errors?.required">Full name is required</span>
+<ion-content fullscreen="true" slot="fixed">
+  <ion-card class="profile-card"
+    ><div class="card">
+      <div class="header">
+        <div class="avatar">
+          <img src="assets/icon/avatar.png" alt="" />
+        </div>
       </div>
-      <ion-item>
-        <ion-input
-          type="name"
-          placeholder="User name"
-          formControlName="username"
-        ></ion-input>
-      </ion-item>
-      <div
-        *ngIf="(username?.dirty || username?.touched) && username?.errors"
-        class="errors"
-      >
-        <span *ngIf="username?.errors?.required">User name is required</span>
+      <div class="card-body">
+        <div class="user-meta ion-text-center">
+          <h3 class="name">name</h3>
+          <h5 class="email">email</h5>
+        </div>
       </div>
-      <ion-item>
-        <ion-input
-          type="email"
-          placeholder="E-mail"
-          formControlName="email"
-        ></ion-input>
-      </ion-item>
-      <div
-        *ngIf="(email?.dirty || email?.touched) && email?.errors"
-        class="errors"
-      >
-        <span *ngIf="email?.errors?.required">E-mail is required</span>
-        <span *ngIf="email?.errors?.email">Email is invalid</span>
       </div>
-      <ion-item>
-        <ion-input
-          type="password"
-          placeholder="Password"
-          formControlName="password"
-        ></ion-input>
-      </ion-item>
-      <div
-        *ngIf="(password?.dirty || password?.touched) && password?.errors"
-        class="errors"
-      >
-        <span *ngIf="password?.errors?.required">Password is required</span>
-        <span *ngIf="password?.errors?.minlength"
-          >Password must be at least 6 characters</span
-        >
-      </div>
-    </div>
-
-    <ion-button
-      (click)="next()"
-      type="submit"
-      expand="block"
-      [disabled]="!credentials.valid"
-      >Next</ion-button
-    >
-    <ion-button
+      <ion-button
       type="button"
       expand="block"
       color="medium"
       fill="clear"
       class="ion-margin-top"
-      routerLink="/login"
+      routerLink="/update"
     >
-      Already a member Login Here
+      Update Profile 
     </ion-button>
-  </form> -->
+  </ion-card>
 </ion-content>
+    
+
