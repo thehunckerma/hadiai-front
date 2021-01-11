@@ -39,27 +39,27 @@ const routes: Routes = [
     loadChildren: './pages/add/add.module#AddPageModule',
     canLoad: [NotAuthGuard], // Prevent authenticated users from accessing this page
   },
-  
+
   {
     path: 'class',
     loadChildren: './pages/class/class.module#ClassPageModule',
     canLoad: [NotAuthGuard], // Prevent authenticated users from accessing this page
   },
-  
+
   {
     path: 'update',
     loadChildren: './pages/update/update.module#UpdatePageModule',
     canLoad: [NotAuthGuard], // Prevent authenticated users from accessing this page
   },
-  
+
   {
     path: '**',
     redirectTo: '/home/tab1',
     pathMatch: 'full',
   },
-  
-  
-  
+
+
+
 ];
 @NgModule({
   imports: [

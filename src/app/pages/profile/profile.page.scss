@@ -2,21 +2,27 @@
   width: 5%;
   margin-left: 1rem;
 }
-
+.card-title {
+  text-align: center;
+  padding-top: 1.5rem;
+  font-size: 2.5rem;
+  text-transform: c;
+}
 .profile-card {
   width: 50%;
+  height: 110%;
   display: block;
   margin: 0 auto;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
-.header {
-  height: 200px; // 20vh;
-}
 .avatar {
-  width: 160px; //40vw
-  height: 160px;
+  width: 10rem; //40vw
+  height: 10rem;
   position: relative;
   margin: 0 auto;
+  margin-top: -2.1rem;
 }
 img {
   display: block;
@@ -29,22 +35,24 @@ img {
 
 .card-body {
   background-color: #ffffff;
-  padding: 30px;
+  padding: 4.5rem;
   height: calc(100vh - (200px + 56px));
   overflow: hidden;
 }
 .user-meta {
   padding-top: 40px;
+
 }
 .name {
-  font-size: 24px;
-  font-weight: 600;
-  color: #303940;
+  font-size: 1rem;
+  //font-weight: 600;
+  color: #949ea6;
+  text-align: center;
 }
 
 .email {
-  font-size: 90%;
+  font-size: 1rem;
   color: #949ea6;
-  text-transform: uppercase;
-  margin: 0 auto;
+  text-align: center;
+
 }

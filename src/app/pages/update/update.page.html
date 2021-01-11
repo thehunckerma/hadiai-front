@@ -7,3 +7,43 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+<ion-content fullscreen="true" slot="fixed">
+  <ion-card class="profile-card">
+    <ion-title class="card-title">Update Profile</ion-title>
+    <div class="avatar">
+      <img src="assets/icon/avatar.png" alt="" />
+    </div>
+
+
+    <form autocomplete="off">
+      <div class="input-group">
+
+        <ion-item>
+          <ion-input type="name" placeholder="User name" value="name"></ion-input>
+        </ion-item>
+        <!-- <div *ngIf="(username?.dirty || username?.touched) && username?.errors" class="errors">
+          <span *ngIf="username?.errors?.required">User name is required</span>
+        </div> -->
+        <ion-item>
+          <ion-input type="email" placeholder="E-mail" value="email"></ion-input>
+        </ion-item>
+        <!-- <div *ngIf="(email?.dirty || email?.touched) && email?.errors" class="errors">
+          <span *ngIf="email?.errors?.required">E-mail is required</span>
+          <span *ngIf="email?.errors?.email">Email is invalid</span>
+        </div> -->
+        <ion-item>
+          <ion-input type="password" placeholder="Password" value="password"></ion-input>
+        </ion-item>
+        <!-- <div *ngIf="(password?.dirty || password?.touched) && password?.errors" class="errors">
+          <span *ngIf="password?.errors?.required">Password is required</span>
+          <span *ngIf="password?.errors?.minlength">Password must be at least 6 characters</span>
+        </div> -->
+      </div>
+
+      <ion-button type="button" expand="block" color="medium" fill="clear" class="ion-margin-top" routerLink="/profile">
+        Save Update
+      </ion-button>
+    </form>
+
+  </ion-card>
+</ion-content>
