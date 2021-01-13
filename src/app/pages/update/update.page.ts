@@ -17,8 +17,25 @@ export class UpdatePage implements OnInit {
   }
 
   ngOnInit() {
+<<<<<<< HEAD
     
   }
 
  
+=======
+
+  }
+  isShowDiv = true;
+   
+  toggleDisplayDiv() {
+    this.isShowDiv = !this.isShowDiv;
+  }
+  passwordType: string = 'password';
+  passwordIcon: string = 'eye-off';
+ 
+  hideShowPassword() {
+      this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
+      this.passwordIcon = this.passwordIcon === 'eye-off' ? 'eye' : 'eye-off';
+  }
+>>>>>>> Updated version of edit profile
 }

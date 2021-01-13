@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #small-logo {
   width: 5%;
   margin-left: 1rem;
@@ -72,3 +73,40 @@ ion-button {
 
 }
 
+=======
+.up-card{
+ 
+  width: 95%;
+  height: 100%;
+  display: block;
+  margin: 0 auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+ 
+}
+form{
+  size: 95%;
+  padding: 30px;
+}
+ion-input{
+  padding-top: 1.4rem;
+}
+  .avatar {
+    width: 8rem; //40vw
+    height: 8rem;
+    position: relative;
+    margin: 0 auto;
+    margin-right: 3rem;
+    margin-bottom: 6rem;
+  }
+  img {
+    display: block;
+    border-radius: 50%;
+    position: absolute;
+    bottom: calc(-1 * (80px + 4px)); // -42px;
+    border: 8px;
+    background-color: #fff;
+  }
+  
+>>>>>>> Updated version of edit profile
