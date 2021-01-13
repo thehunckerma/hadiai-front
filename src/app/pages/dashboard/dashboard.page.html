@@ -1,42 +1,66 @@
 <ion-header>
   <ion-toolbar class="bar" color="gray">
     <ion-row class="ion-justify-content-between">
-      <ion-img src="assets/icon/logo_tran.png" id="small-logo"></ion-img>
+      <ion-title>Dashboard</ion-title>
       <ion-buttons>
-        <ion-button style="height: 65%" routerLink="/profile"
-          ><ion-icon name="person-circle-outline" slot="icon-only"></ion-icon>
-        </ion-button>
-        <ion-button
-          style="margin-right: 2rem; font-size: 120%"
-          routerLink="/add"
-        >
-          <ion-icon name="add-outline"></ion-icon></ion-button
-      ></ion-buttons>
+        <ion-button style="height: 200% ;width:170%; padding-right:1rem" routerLink="/profile"></ion-button>
+        <ion-icon name="person-circle-outline" slot="icon-only"></ion-icon>
+
+      </ion-buttons>
     </ion-row>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <!-- <ion-item class="myItem">
-      <ion-label style="margin-right: 1rem">Classes</ion-label>
-      <ion-label style="text-align: end; margin-right: 21px">Action</ion-label>
-    </ion-item> -->
+  <div class="t-card">
+    <ion-card>
+      <ion-row class="ion-justify-content-between">
+        <ion-input placeholder="Add section"></ion-input>
+        <ion-button fill=clear class="ion-margin-end" style="margin-right: -0.2rem;">ADD</ion-button>
+      </ion-row>
+    </ion-card>
+    <ion-card>
+      <ion-list>
+        <ion-item class="ion-no-padding" *ngFor="let class of classes">
+          <ion-row class="ion-justify-content-between">
+            <ion-label style="padding-top: 1rem; padding-left: 1rem;">{{class.id}}</ion-label>
+            <ion-buttons class="b-action">
+              <ion-button routerLink="/class">
+                <ion-icon name="open-outline" slot="icon-only"> </ion-icon>
+              </ion-button>
+              <ion-button class="alert-wrapper" (click)="deleteClassAlertButtons()">
+                <ion-icon name="trash-outline"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-row>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+  </div>
+  <div class="s-card">
+    <ion-card>
+      <ion-row class="ion-justify-content-between">
+        <ion-input placeholder="Join section"></ion-input>
+        <ion-button fill=clear class="ion-margin-end" style="margin-right: -0.2rem;">JOIN</ion-button>
+      </ion-row>
+    </ion-card>
+    <ion-card>
+      <ion-list>
+        <ion-item class="ion-no-padding" *ngFor="let class of classes">
+          <ion-row class="ion-justify-content-between">
+            <ion-label style="padding-top: 1rem; padding-left: 1rem;">{{class.id}}</ion-label>
+            <ion-buttons class="b-action">
+              <ion-button routerLink="/class">
+                <ion-icon name="open-outline" slot="icon-only"> </ion-icon>
+              </ion-button>
+              <ion-button class="alert-wrapper" (click)="deleteClassAlertButtons()">
+                <ion-icon class="ion-margin-end" name="trash-outline"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-row>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+  </div>
 
-    <ion-item *ngFor="let class of classes">
-      <ion-card class="class-card">
-        <ion-row class="ion-justify-content-between">
-          <ion-label>{{class.id}}</ion-label>
-          <ion-buttons class="b-action">
-            <ion-button routerLink="/class">
-              <ion-icon name="open-outline" slot="icon-only"> </ion-icon>
-            </ion-button>
-            <ion-button class="alert-wrapper" (click)="deleteClassAlertButtons()">
-              <ion-icon class="ion-margin-end" name="trash-outline"></ion-icon>
-            </ion-button>
-          </ion-buttons>
-        </ion-row>
-      </ion-card>
-    </ion-item>
-  </ion-list>
 </ion-content>
