@@ -4,7 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 export const environment = {
   production: false,
-  JAVA_API: 'http://localhost:8090/api',
+  JAVA_API: 'http://localhost:8080/api',
   FACE_DETECTION_API: 'http://localhost:8000',
 };
 

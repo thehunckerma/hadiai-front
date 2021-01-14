@@ -2,7 +2,10 @@
   <ion-toolbar>
     <ion-row class="ion-justify-content-between">
       <ion-title> Tab One </ion-title>
-      <ion-button color="medium" class="ion-margin-end" (click)="logout()"
+      <ion-button
+        color="medium"
+        class="ion-margin-end"
+        (click)="authService.logoutAndNavigateToLogin()"
         >Logout</ion-button
       >
     </ion-row>

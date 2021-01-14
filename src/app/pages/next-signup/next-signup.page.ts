@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
-import { Subject, Observable, interval } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { AlertController, LoadingController } from '@ionic/angular';
+import {
+  AlertController,
+  LoadingController,
+  ToastController,
+} from '@ionic/angular';
 import { FaceDetectionResp } from '../../interfaces/face-detection-resp';
 
 import { FaceDetectionService } from '../../services/face-detection.service';
@@ -60,6 +64,7 @@ export class NextSignupPage implements OnInit {
     private faceDetectionService: FaceDetectionService,
     private authService: AuthenticationService,
     private alertController: AlertController,
+    private toastController: ToastController,
     private router: Router,
     private loadingController: LoadingController
   ) {
@@ -153,25 +158,44 @@ export class NextSignupPage implements OnInit {
     const loading = await this.loadingController.create();
     await loading.present();
 
-    this.authService.signup(this.credentials).subscribe(
+    this.authService.signup(this.credentials, 'mod').subscribe(
       async () => {
+        await Storage.remove({
+          key: 'stringified-creds',
+        });
+        const toast = await this.toastController.create({
+          header: 'Sign up successfull',
+          duration: 1500000,
+          position: 'bottom',
+          color: 'primary',
+        });
+        toast.present();
         await loading.dismiss();
         this.router.navigateByUrl('/home', { replaceUrl: true });
       },
-      async (res) => {
+      async (res: any) => {
+        console.log(res);
+        let alert: any;
         await loading.dismiss();
-        const alert = await this.alertController.create({
-          header: 'Invalid credentials, please try again!',
-          message: res
-            ? res.error
-              ? res.error.error
+        if (!!res && !!res.error && !!res.error.message) {
+          alert = await this.alertController.create({
+            header: 'Invalid credentials, please try again!',
+            message: res.error.message,
+            buttons: ['OK'],
+          });
+        } else {
+          alert = await this.alertController.create({
+            header: 'Invalid credentials, please try again!',
+            message: res
+              ? res.error
                 ? res.error.error
+                  ? res.error.error
+                  : 'Unkown error'
                 : 'Unkown error'
-              : 'Unkown error'
-            : 'Unkown error',
-          buttons: ['OK'],
-        });
-
+              : 'Unkown error',
+            buttons: ['OK'],
+          });
+        }
         await alert.present();
       }
     );

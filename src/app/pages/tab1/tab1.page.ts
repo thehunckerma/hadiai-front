@@ -11,15 +11,10 @@ import { AuthenticationService } from '../../services/authentication.service';
 export class Tab1Page implements OnInit {
   public electron: any;
   constructor(
-    private authService: AuthenticationService,
+    public authService: AuthenticationService,
     private router: Router,
     public electronService: ElectronService
   ) {}
 
   ngOnInit() {}
-
-  async logout() {
-    await this.authService.logout();
-    this.router.navigateByUrl('/login', { replaceUrl: true });
-  }
 }

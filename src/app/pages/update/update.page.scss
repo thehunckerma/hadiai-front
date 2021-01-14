@@ -1,37 +1,25 @@
-<<<<<<< HEAD
-#small-logo {
-  width: 5%;
-  margin-left: 1rem;
-}
-ion-content {
-  width: 100%;
-}
-
-form {
-  max-width: 600px;
-  margin: auto;
-}
-.card-title {
-  text-align: center;
-  padding-top: 1.5rem;
-  font-size: 2.3rem;
-  text-transform: capitalize;
-}
-.profile-card {
-  width: 50%;
-  height: 110%;
+.up-card {
+  width: 95%;
+  height: 100%;
   display: block;
   margin: 0 auto;
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
-
+form {
+  size: 95%;
+  padding: 30px;
+}
+ion-input {
+  padding-top: 1.4rem;
+}
 .avatar {
-  width: 10rem; //40vw
-  height: 10rem;
+  width: 8rem; //40vw
+  height: 8rem;
   position: relative;
   margin: 0 auto;
-  margin-top: -2rem;
+  margin-right: 3rem;
+  margin-bottom: 6rem;
 }
 img {
   display: block;
@@ -41,72 +29,3 @@ img {
   border: 8px;
   background-color: #fff;
 }
-
-.card-body {
-  background-color: #ffffff;
-  padding: 30px;
-  height: calc(100vh - (200px + 56px));
-  overflow: hidden;
-}
-.input-group {
-  background: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 3rem;
-  margin-top: 5.1rem;
-
-}
-
-.errors {
-  font-size: small;
-  color: #fff;
-  background: var(--ion-color-danger);
-  padding-left: 15px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-
-
-ion-button {
-  margin-left: 0;
-  margin-right: 0;
-
-}
-
-=======
-.up-card{
- 
-  width: 95%;
-  height: 100%;
-  display: block;
-  margin: 0 auto;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-
- 
-}
-form{
-  size: 95%;
-  padding: 30px;
-}
-ion-input{
-  padding-top: 1.4rem;
-}
-  .avatar {
-    width: 8rem; //40vw
-    height: 8rem;
-    position: relative;
-    margin: 0 auto;
-    margin-right: 3rem;
-    margin-bottom: 6rem;
-  }
-  img {
-    display: block;
-    border-radius: 50%;
-    position: absolute;
-    bottom: calc(-1 * (80px + 4px)); // -42px;
-    border: 8px;
-    background-color: #fff;
-  }
-  
->>>>>>> Updated version of edit profile

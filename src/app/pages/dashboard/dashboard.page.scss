@@ -1,7 +1,50 @@
-.b-action{
-  margin-right: -78rem;
+.list-row {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 1vw;
 }
-
-
-
- 
+.no-classes-icon {
+  height: 30vh;
+}
+.no-classes {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 10vh;
+}
+ion-input {
+  --placeholder-font-weight: 400;
+  --placeholder-opacity: 0.8;
+}
+#divider {
+  width: 100%;
+  border-bottom: 1px solid #eeeeee;
+}
+.item-col,
+.item-col-label {
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+}
+.item-col {
+  font-weight: 300;
+}
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (max-width: 961px) {
+  .hide-small {
+    display: none;
+  }
+  .item-col,
+  .item-col-label {
+    width: 33%;
+  }
+}

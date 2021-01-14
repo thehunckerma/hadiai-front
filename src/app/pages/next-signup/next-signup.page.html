@@ -10,11 +10,16 @@
 <ion-content *ngIf="shouldLoad">
   <div id="cam-container">
     <ion-card id="creds-card">
-      <img *ngIf="originalImageAsDataUrl" [src]="originalImageAsDataUrl" />
+      <img
+        alt=""
+        *ngIf="originalImageAsDataUrl"
+        [src]="originalImageAsDataUrl"
+      />
       <img
         *ngIf="!originalImageAsDataUrl"
         src="assets/icon/user.svg"
         id="profile-icon"
+        alt=""
       />
       <ion-card-header>
         <ion-card-title><strong>Your profile</strong></ion-card-title>
@@ -60,9 +65,10 @@
         ></webcam>
       </div>
       <div>
-        <img *ngIf="webcamImage" [src]="imageAsDataUrl" #snapShot />
+        <img *ngIf="webcamImage" [src]="imageAsDataUrl" alt="" #snapShot />
       </div>
       <img
+        alt=""
         *ngIf="errors?.length > 0 || !showWebcam"
         src="assets/icon/webcam.svg"
         id="image-icon"
@@ -232,9 +238,7 @@
         >
           Next Webcam
         </ion-button>
-        <ion-button (click)="cancel();" color="danger">
-          Cancel
-        </ion-button>
+        <ion-button (click)="cancel();" color="danger"> Cancel </ion-button>
       </ion-item>
 
       <ion-item *ngIf="!isImageCollectingFinished">

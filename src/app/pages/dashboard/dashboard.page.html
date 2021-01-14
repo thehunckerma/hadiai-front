@@ -2,65 +2,105 @@
   <ion-toolbar class="bar" color="gray">
     <ion-row class="ion-justify-content-between">
       <ion-title>Dashboard</ion-title>
-      <ion-buttons>
-        <ion-button style="height: 200% ;width:170%; padding-right:1rem" routerLink="/profile"></ion-button>
+      <!-- <ion-buttons>
+        <ion-button
+          style="height: 200%; width: 170%; padding-right: 1rem"
+          routerLink="/profile"
+        ></ion-button>
         <ion-icon name="person-circle-outline" slot="icon-only"></ion-icon>
-
-      </ion-buttons>
+      </ion-buttons> -->
+      <ion-button
+        color="medium"
+        class="ion-margin-end"
+        (click)="authService.logoutAndNavigateToLogin()"
+      >
+        Logout
+      </ion-button>
     </ion-row>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div class="t-card">
-    <ion-card>
+<ion-content *ngIf="isLoaded">
+  <div>
+    <ion-card class="ion-margin-top" *ngIf="roles === 'ROLE_MODERATOR'">
+      <div class="list-row">
+        <div style="width: 100%">
+          <ion-input
+            autofocus="true"
+            autocorrect="off"
+            placeholder="Class Name"
+            [(ngModel)]="sectionName"
+          ></ion-input>
+          <div id="divider"></div>
+          <ion-input
+            autofocus="true"
+            autocorrect="off"
+            placeholder="Description (optional)"
+            [(ngModel)]="sectionDescription"
+          ></ion-input>
+        </div>
+        <ion-button
+          size="default"
+          fill="clear"
+          class="ion-margin-start"
+          (click)="addSection()"
+          >CREATE</ion-button
+        >
+      </div>
+    </ion-card>
+    <ion-card *ngIf="roles === 'ROLE_USER'">
       <ion-row class="ion-justify-content-between">
-        <ion-input placeholder="Add section"></ion-input>
-        <ion-button fill=clear class="ion-margin-end" style="margin-right: -0.2rem;">ADD</ion-button>
+        <ion-input placeholder="Join section"></ion-input>
+        <ion-button
+          fill="clear"
+          class="ion-margin-end"
+          style="margin-right: -0.2rem"
+          >JOIN</ion-button
+        >
       </ion-row>
     </ion-card>
-    <ion-card>
+    <ion-card *ngIf="sections?.length > 0">
       <ion-list>
-        <ion-item class="ion-no-padding" *ngFor="let class of classes">
-          <ion-row class="ion-justify-content-between">
-            <ion-label style="padding-top: 1rem; padding-left: 1rem;">{{class.id}}</ion-label>
-            <ion-buttons class="b-action">
-              <ion-button routerLink="/class">
+        <ion-item class="ion-no-padding">
+          <div class="list-row">
+            <ion-label class="item-col-label">Name</ion-label>
+            <ion-label class="item-col-label">Token</ion-label>
+            <ion-label class="item-col-label hide-small">N. Students</ion-label>
+            <ion-label class="item-col-label hide-small">N. Sessions</ion-label>
+            <ion-label class="item-col-label">Actions</ion-label>
+          </div>
+        </ion-item>
+        <ion-item class="ion-no-padding" *ngFor="let section of sections">
+          <div class="list-row">
+            <span class="item-col"> {{section.name}} </span>
+            <span class="item-col">
+              <span class="truncate">{{section.token}}</span>
+            </span>
+            <span class="item-col hide-small">
+              {{section.students?.length + 1}}
+            </span>
+            <span class="item-col hide-small"
+              ><span class="truncate">{{section.sessions?.length + 1}}</span>
+            </span>
+            <ion-buttons class="item-col">
+              <ion-button [routerLink]="'/class/'+section.id">
                 <ion-icon name="open-outline" slot="icon-only"> </ion-icon>
               </ion-button>
-              <ion-button class="alert-wrapper" (click)="deleteClassAlertButtons()">
+              <ion-button
+                *ngIf="roles === 'ROLE_MODERATOR'"
+                class="alert-wrapper"
+                (click)="deleteSectionModal(section.id)"
+              >
                 <ion-icon name="trash-outline"></ion-icon>
               </ion-button>
             </ion-buttons>
-          </ion-row>
+          </div>
         </ion-item>
       </ion-list>
     </ion-card>
+    <div *ngIf="!sections?.length" class="no-classes">
+      <img src="assets/icon/empty.svg" class="no-classes-icon" alt="" />
+      <h3 style="text-align: center">There are no classes yet.</h3>
+    </div>
   </div>
-  <div class="s-card">
-    <ion-card>
-      <ion-row class="ion-justify-content-between">
-        <ion-input placeholder="Join section"></ion-input>
-        <ion-button fill=clear class="ion-margin-end" style="margin-right: -0.2rem;">JOIN</ion-button>
-      </ion-row>
-    </ion-card>
-    <ion-card>
-      <ion-list>
-        <ion-item class="ion-no-padding" *ngFor="let class of classes">
-          <ion-row class="ion-justify-content-between">
-            <ion-label style="padding-top: 1rem; padding-left: 1rem;">{{class.id}}</ion-label>
-            <ion-buttons class="b-action">
-              <ion-button routerLink="/class">
-                <ion-icon name="open-outline" slot="icon-only"> </ion-icon>
-              </ion-button>
-              <ion-button class="alert-wrapper" (click)="deleteClassAlertButtons()">
-                <ion-icon class="ion-margin-end" name="trash-outline"></ion-icon>
-              </ion-button>
-            </ion-buttons>
-          </ion-row>
-        </ion-item>
-      </ion-list>
-    </ion-card>
-  </div>
-
 </ion-content>

@@ -7,46 +7,6 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<<<<<<< HEAD
-<ion-content fullscreen="true" slot="fixed">
-  <ion-card class="profile-card">
-    <ion-title class="card-title">Update Profile</ion-title>
-    <div class="avatar">
-      <img src="assets/icon/avatar.png" alt="" />
-    </div>
-
-
-    <form autocomplete="off">
-      <div class="input-group">
-
-        <ion-item>
-          <ion-input type="name" placeholder="User name" value="name"></ion-input>
-        </ion-item>
-        <!-- <div *ngIf="(username?.dirty || username?.touched) && username?.errors" class="errors">
-          <span *ngIf="username?.errors?.required">User name is required</span>
-        </div> -->
-        <ion-item>
-          <ion-input type="email" placeholder="E-mail" value="email"></ion-input>
-        </ion-item>
-        <!-- <div *ngIf="(email?.dirty || email?.touched) && email?.errors" class="errors">
-          <span *ngIf="email?.errors?.required">E-mail is required</span>
-          <span *ngIf="email?.errors?.email">Email is invalid</span>
-        </div> -->
-        <ion-item>
-          <ion-input type="password" placeholder="Password" value="password"></ion-input>
-        </ion-item>
-        <!-- <div *ngIf="(password?.dirty || password?.touched) && password?.errors" class="errors">
-          <span *ngIf="password?.errors?.required">Password is required</span>
-          <span *ngIf="password?.errors?.minlength">Password must be at least 6 characters</span>
-        </div> -->
-      </div>
-
-      <ion-button type="button" expand="block" color="medium" fill="clear" class="ion-margin-top" routerLink="/profile">
-        Save Update
-      </ion-button>
-    </form>
-
-=======
 <ion-content>
   <ion-card class="up-card">
     <div class="avatar">
@@ -55,7 +15,11 @@
     <form autocomplete="off">
       <div class="input-group">
         <ion-item>
-          <ion-input type="name" placeholder="Full name" value="fullname"></ion-input>
+          <ion-input
+            type="name"
+            placeholder="Full name"
+            value="fullname"
+          ></ion-input>
         </ion-item>
         <!-- <div
         *ngIf="(fullname?.dirty || fullname?.touched) && fullname?.errors"
@@ -64,7 +28,11 @@
         <span *ngIf="fullname?.errors?.required">Full name is required</span>
       </div> -->
         <ion-item>
-          <ion-input type="name" placeholder="User name" value="username"></ion-input>
+          <ion-input
+            type="name"
+            placeholder="User name"
+            value="username"
+          ></ion-input>
         </ion-item>
         <!-- <div
         *ngIf="(username?.dirty || username?.touched) && username?.errors"
@@ -73,7 +41,11 @@
         <span *ngIf="username?.errors?.required">User name is required</span>
       </div> -->
         <ion-item>
-          <ion-input type="email" placeholder="E-mail" value="email"></ion-input>
+          <ion-input
+            type="email"
+            placeholder="E-mail"
+            value="email"
+          ></ion-input>
         </ion-item>
         <!-- <div
         *ngIf="(email?.dirty || email?.touched) && email?.errors"
@@ -82,23 +54,48 @@
         <span *ngIf="email?.errors?.required">E-mail is required</span>
         <span *ngIf="email?.errors?.email">Email is invalid</span>
       </div> -->
-      
+
         <ion-item>
-         
-          <ion-input type="password" placeholder="Password" value="password"></ion-input>
-          <ion-button (click)=toggleDisplayDiv() fill=clear color=default style="margin-right: 0rem;">change password</ion-button>
-      
+          <ion-input
+            type="password"
+            placeholder="Password"
+            value="password"
+          ></ion-input>
+          <ion-button
+            (click)="toggleDisplayDiv()"
+            fill="clear"
+            color="default"
+            style="margin-right: 0rem"
+            >change password</ion-button
+          >
         </ion-item>
-   
-        
+
         <div [hidden]="isShowDiv">
           <ion-item>
-            <ion-input [type]="passwordType" clearOnEdit="false" placeholder="Old password"></ion-input>
-            <ion-icon item-end [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+            <ion-input
+              [type]="passwordType"
+              clearOnEdit="false"
+              placeholder="Old password"
+            ></ion-input>
+            <ion-icon
+              item-end
+              [name]="passwordIcon"
+              class="passwordIcon"
+              (click)="hideShowPassword()"
+            ></ion-icon>
           </ion-item>
           <ion-item>
-            <ion-input [type]="passwordType" clearOnEdit="false" placeholder="New password"></ion-input>
-            <ion-icon item-end [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+            <ion-input
+              [type]="passwordType"
+              clearOnEdit="false"
+              placeholder="New password"
+            ></ion-input>
+            <ion-icon
+              item-end
+              [name]="passwordIcon"
+              class="passwordIcon"
+              (click)="hideShowPassword()"
+            ></ion-icon>
           </ion-item>
         </div>
         <!-- <div
@@ -112,8 +109,9 @@
       </div> -->
       </div>
 
-      <ion-button color=medium type="submit" expand="block" fill=clear>Save update</ion-button>
+      <ion-button color="medium" type="submit" expand="block" fill="clear"
+        >Save update</ion-button
+      >
     </form>
->>>>>>> Updated version of edit profile
   </ion-card>
 </ion-content>

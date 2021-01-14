@@ -36,6 +36,14 @@ input:-webkit-autofill:active {
 ion-button {
   --border-radius: 0;
 }
+ion-item:last-child {
+  --inner-border-width: 0 0 0 0;
+  background-color: red;
+}
+.list-md {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
 
 :root {
   --ion-color-danger: #ff7777;
