@@ -5,8 +5,13 @@ import { NotAuthGuard } from './guards/notAuth.guard';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: './pages/tabs/tabs.module#TabsPageModule',
+    path: 'dashboard',
+    loadChildren: './pages/dashboard/dashboard.module#DashboardPageModule',
+    // canLoad: [NotAuthGuard], // Prevent authenticated users from accessing this page
+  },
+  {
+    path: 'section',
+    loadChildren: './pages/section/section.module#SectionPageModule',
     canLoad: [AuthGuard], // Secure all child pages from unauthenticated clients
   },
   {
@@ -25,27 +30,10 @@ const routes: Routes = [
     // canLoad: [NotAuthGuard], // Prevent authenticated users from accessing this page
   },
   {
-    path: 'dashboard',
-    loadChildren: './pages/dashboard/dashboard.module#DashboardPageModule',
-    // canLoad: [NotAuthGuard], // Prevent authenticated users from accessing this page
-  },
-  {
     path: 'profile',
     loadChildren: './pages/profile/profile.module#ProfilePageModule',
     // canLoad: [NotAuthGuard], // Prevent authenticated users from accessing this page
   },
-  {
-    path: 'add',
-    loadChildren: './pages/add/add.module#AddPageModule',
-    // canLoad: [NotAuthGuard], // Prevent authenticated users from accessing this page
-  },
-
-  {
-    path: 'class',
-    loadChildren: './pages/class/class.module#ClassPageModule',
-    // canLoad: [NotAuthGuard], // Prevent authenticated users from accessing this page
-  },
-
   {
     path: 'update',
     loadChildren: './pages/update/update.module#UpdatePageModule',
@@ -54,9 +42,10 @@ const routes: Routes = [
 
   {
     path: '**',
-    redirectTo: '/home/tab1',
+    redirectTo: '/home/users',
     pathMatch: 'full',
   },
+  
 ];
 @NgModule({
   imports: [

@@ -25,7 +25,7 @@ export class DashboardPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    //this.getClasses();
+    
     this.authService.roles.subscribe(
       (roles: 'ROLE_USER' | 'ROLE_MODERATOR') => {
         if (!!roles) {

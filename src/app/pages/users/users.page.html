@@ -1,22 +1,26 @@
 <ion-header>
   <ion-toolbar>
-    
+    <div class="list-row">
+      <ion-title>Users</ion-title>
+      <ion-button color="medium" fill=clear>
+        <ion-icon name="person-add"></ion-icon>
+      </ion-button>
+
+    </div>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <ion-list>
-      <ion-item class="ion-no-padding" *ngFor="let class of classes">
-        <ion-row class="ion-justify-content-between">
-          <ion-label style="padding-top: 1rem; padding-left: 1rem;">{{class.id}}</ion-label>
-          <ion-buttons class="b-action">
-            <ion-button class="alert-wrapper" (click)="deleteUserAlertButtons()">
-              <ion-icon name="trash-outline"></ion-icon>
-            </ion-button>
-          </ion-buttons>
-        </ion-row>
-      </ion-item>
-    </ion-list>
-  </ion-card>
+  <ion-item class="ion-no-padding">
+    <div class="list-row">
+      <ion-label class="item-col-label"></ion-label>
+    </div>
+  </ion-item>
+  <ion-item class="ion-no-padding" *ngFor="let section of sections">
+    <div class="list-row">
+      <span class="item-col"> {{section.students.username}} </span>
+      <ion-icon name="trash-outline"></ion-icon>
+    </div>
+  </ion-item>
 </ion-content>

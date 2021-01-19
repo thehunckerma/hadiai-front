@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-section',
-  templateUrl: './section.page.html',
-  styleUrls: ['./section.page.scss'],
+  templateUrl: 'section.page.html',
+  styleUrls: ['section.page.scss']
 })
-export class SectionPage implements OnInit {
+export class SectionPage {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
+  
 }
+

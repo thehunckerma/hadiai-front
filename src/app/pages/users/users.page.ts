@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { Section } from '../../interfaces/section';
+import { User } from '../../interfaces/user';
+import { AuthenticationService } from '../../services/authentication.service';
+import { SectionService } from '../../services/section.service';
 
 @Component({
   selector: 'app-users',
@@ -7,17 +10,37 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./users.page.scss'],
 })
 export class UsersPage implements OnInit {
+  roles: 'ROLE_USER' | 'ROLE_MODERATOR';
+  sections: Array<Section>;
+  students : Array<User> ;
+  isLoaded = false;
 
-  constructor(public alertCtrl: AlertController) { }
+  constructor(public authService: AuthenticationService,
+    private sectionService: SectionService) { }
 
   ngOnInit() {
+
+    this.authService.roles.subscribe(
+      (roles: 'ROLE_USER' | 'ROLE_MODERATOR') => {
+        if (!!roles) {
+          this.roles = roles;
+          this.getAllSections(this.roles === 'ROLE_MODERATOR' ? 'mod' : null);
+        }
+      }
+    );
   }
-  async deleteClassAlertButtons() {  
-    const alert = await this.alertCtrl.create({  
-      header: 'Alert !',  
-      message: 'Are you sure you want to delete student ?',  
-      buttons: ['Cancel', 'Delete']  
-    });  
-    await alert.present();  
-  }  
+
+  private getAllSections(role: string = '') {
+    this.sectionService.getAllSections(role).subscribe(
+      (resp: Array<Section>) => {
+        this.isLoaded = true;
+        this.sections= resp;
+        console.log(resp);
+      },
+      (error: any) => {
+        console.log(error);
+        this.isLoaded = false;
+      }
+    );
+  }
 }

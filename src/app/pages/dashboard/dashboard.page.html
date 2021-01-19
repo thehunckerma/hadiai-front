@@ -5,12 +5,14 @@
       <!-- <ion-buttons>
         <ion-button
           style="height: 200%; width: 170%; padding-right: 1rem"
-          routerLink="/profile"
-        ></ion-button>
+          routerLink="/profile "
+        >
         <ion-icon name="person-circle-outline" slot="icon-only"></ion-icon>
+        </ion-button>
       </ion-buttons> -->
       <ion-button
-        color="medium"
+        color="danger"
+        fill=clear
         class="ion-margin-end"
         (click)="authService.logoutAndNavigateToLogin()"
       >
@@ -83,7 +85,7 @@
               ><span class="truncate">{{section.sessions?.length + 1}}</span>
             </span>
             <ion-buttons class="item-col">
-              <ion-button [routerLink]="'/class/'+section.id">
+              <ion-button [routerLink]="'/section/'+section.id">
                 <ion-icon name="open-outline" slot="icon-only"> </ion-icon>
               </ion-button>
               <ion-button

@@ -1,28 +1,28 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { TabsPage } from './tabs.page';
+import { SectionPage } from './section.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: TabsPage,
+    component: SectionPage,
     children: [
       {
-        path: 'tab1',
+        path: 'users',
         children: [
           {
             path: '',
-            loadChildren: '../tab1/tab1.module#Tab1PageModule',
+            loadChildren: '../users/users.module#UsersPageModule',
           },
         ],
       },
       {
-        path: 'tab2',
+        path: 'sessions',
         children: [
           {
             path: '',
-            loadChildren: '../tab2/tab2.module#Tab2PageModule',
+            loadChildren: '../sessions/sessions.module#SessionsPageModule',
           },
         ],
       },
@@ -37,14 +37,14 @@ const routes: Routes = [
       },
       {
         path: '**',
-        redirectTo: '/home/tab1',
+        redirectTo: '/home/users',
         pathMatch: 'full',
       },
     ],
   },
   {
     path: '**',
-    redirectTo: '/home/tab1',
+    redirectTo: '/home/users',
     pathMatch: 'full',
   },
 ];
@@ -53,4 +53,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class TabsPageRoutingModule {}
+export class SectionPageRoutingModule {}
