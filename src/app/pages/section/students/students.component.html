@@ -1,0 +1,70 @@
+<div *ngIf="isLoaded" id="container">
+  <h1 *ngIf="students?.length > 0 || requests?.length > 0">Requests</h1>
+  <ion-card *ngIf="requests?.length > 0">
+    <ion-list>
+      <ion-item class="ion-no-padding">
+        <div class="list-row">
+          <ion-label class="item-col-label">Username</ion-label>
+          <ion-label class="item-col-label">Email</ion-label>
+          <ion-label class="item-col-label">Actions</ion-label>
+        </div>
+      </ion-item>
+      <ion-item class="ion-no-padding" *ngFor="let request of requests">
+        <div class="list-row">
+          <span class="item-col"> {{ request.username }} </span>
+          <span class="item-col">
+            <span class="truncate">{{ request.email }}</span>
+          </span>
+          <ion-buttons class="item-col">
+            <ion-button>
+              <ion-icon name="open-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+            <ion-button>
+              <ion-icon name="trash-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+  <div *ngIf="!requests?.length && students?.length > 0" class="nothing">
+    <img src="assets/icon/woman.svg" class="nothing-icon" alt="" />
+    <h3 style="text-align: center">There are no requests.</h3>
+  </div>
+  <h1 *ngIf="students?.length > 0 || requests?.length > 0">Students</h1>
+  <ion-card *ngIf="students?.length > 0">
+    <ion-list>
+      <ion-item class="ion-no-padding">
+        <div class="list-row">
+          <ion-label class="item-col-label">Username</ion-label>
+          <ion-label class="item-col-label">Email</ion-label>
+          <ion-label class="item-col-label">Actions</ion-label>
+        </div>
+      </ion-item>
+      <ion-item class="ion-no-padding" *ngFor="let student of students">
+        <div class="list-row">
+          <span class="item-col"> {{ student.username }} </span>
+          <span class="item-col">
+            <span class="truncate">{{ student.email }}</span>
+          </span>
+          <ion-buttons class="item-col">
+            <ion-button>
+              <ion-icon name="open-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+            <ion-button>
+              <ion-icon name="trash-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+  <div *ngIf="!students?.length && requests?.length > 0" class="nothing">
+    <img src="assets/icon/woman.svg" class="nothing-icon" alt="" />
+    <h3 style="text-align: center">There are no students.</h3>
+  </div>
+  <div *ngIf="!students?.length && !requests?.length" class="nothing">
+    <img src="assets/icon/woman.svg" class="nothing-icon" alt="" />
+    <h3 style="text-align: center">There are no students/requests yet.</h3>
+  </div>
+</div>

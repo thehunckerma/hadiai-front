@@ -5,14 +5,19 @@ import { NotAuthGuard } from './guards/notAuth.guard';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full',
+  },
+  {
     path: 'dashboard',
     loadChildren: './pages/dashboard/dashboard.module#DashboardPageModule',
     // canLoad: [NotAuthGuard], // Prevent authenticated users from accessing this page
   },
   {
-    path: 'section',
+    path: 'class',
     loadChildren: './pages/section/section.module#SectionPageModule',
-    canLoad: [AuthGuard], // Secure all child pages from unauthenticated clients
+    // canLoad: [AuthGuard], // Secure all child pages from unauthenticated clients
   },
   {
     path: 'login',
@@ -39,17 +44,22 @@ const routes: Routes = [
     loadChildren: './pages/update/update.module#UpdatePageModule',
     // canLoad: [NotAuthGuard], // Prevent authenticated users from accessing this page
   },
-
+  {
+    path: 'not-found',
+    loadChildren: './pages/not-found/not-found.module#NotFoundPageModule',
+  },
   {
     path: '**',
-    redirectTo: '/home/users',
+    redirectTo: '/not-found',
     pathMatch: 'full',
   },
-  
 ];
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
+    RouterModule.forRoot(routes, {
+      preloadingStrategy: PreloadAllModules,
+      // enableTracing: true,
+    }),
   ],
   exports: [RouterModule],
 })

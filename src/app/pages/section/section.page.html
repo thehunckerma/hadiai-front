@@ -1,18 +1,22 @@
-<ion-tabs>
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="users">
-      <ion-icon name="people"></ion-icon>
-      <ion-label>Users</ion-label>
-    </ion-tab-button>
-
-    <ion-tab-button tab="sessions">
-      <ion-icon name="apps"></ion-icon>
-      <ion-label>Sessions</ion-label>
-    </ion-tab-button>
-
-    <ion-tab-button tab="tab3">
-      <ion-icon name="stats"></ion-icon>
-      <ion-label>Statistics</ion-label>
-    </ion-tab-button>
-    </ion-tab-bar>
-</ion-tabs>
+<div>
+  <div id="top-nav-bar">
+    <ion-segment-button value="call" (click)="switchPage('home')">
+      Class
+    </ion-segment-button>
+    <ion-segment-button value="call" (click)="switchPage('sessions')">
+      Sessions
+    </ion-segment-button>
+    <ion-segment-button value="call" (click)="switchPage('students')">
+      Students
+    </ion-segment-button>
+    <ion-segment-button value="call" (click)="switchPage('statistics')">
+      Statistics
+    </ion-segment-button>
+  </div>
+  <div>
+    <app-main [id]="id" *ngIf="page === 'home'"></app-main>
+    <app-students [id]="id" *ngIf="page === 'students'"></app-students>
+    <app-statistics *ngIf="page === 'statistics'"></app-statistics>
+    <app-sessions [id]="id" *ngIf="page === 'sessions'"></app-sessions>
+  </div>
+</div>

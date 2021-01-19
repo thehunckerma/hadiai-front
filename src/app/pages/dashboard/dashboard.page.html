@@ -1,28 +1,4 @@
-<ion-header>
-  <ion-toolbar class="bar" color="gray">
-    <ion-row class="ion-justify-content-between">
-      <ion-title>Dashboard</ion-title>
-      <!-- <ion-buttons>
-        <ion-button
-          style="height: 200%; width: 170%; padding-right: 1rem"
-          routerLink="/profile "
-        >
-        <ion-icon name="person-circle-outline" slot="icon-only"></ion-icon>
-        </ion-button>
-      </ion-buttons> -->
-      <ion-button
-        color="danger"
-        fill=clear
-        class="ion-margin-end"
-        (click)="authService.logoutAndNavigateToLogin()"
-      >
-        Logout
-      </ion-button>
-    </ion-row>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content *ngIf="isLoaded">
+<div *ngIf="isLoaded">
   <div>
     <ion-card class="ion-margin-top" *ngIf="roles === 'ROLE_MODERATOR'">
       <div class="list-row">
@@ -85,8 +61,11 @@
               ><span class="truncate">{{section.sessions?.length + 1}}</span>
             </span>
             <ion-buttons class="item-col">
-              <ion-button [routerLink]="'/section/'+section.id">
-                <ion-icon name="open-outline" slot="icon-only"> </ion-icon>
+              <ion-button
+                [routerLink]="['/class/home', section.id]"
+                routerLinkActive="router-link-active"
+              >
+                <ion-icon name="open-outline" slot="icon-only"></ion-icon>
               </ion-button>
               <ion-button
                 *ngIf="roles === 'ROLE_MODERATOR'"
@@ -105,4 +84,4 @@
       <h3 style="text-align: center">There are no classes yet.</h3>
     </div>
   </div>
-</ion-content>
+</div>

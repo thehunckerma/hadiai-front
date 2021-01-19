@@ -1,13 +1,4 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>Sign up</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content *ngIf="shouldLoad">
+<div *ngIf="shouldLoad">
   <div id="cam-container">
     <ion-card id="creds-card">
       <img
@@ -187,10 +178,8 @@
           (initError)="handleInitError($event)"
         ></webcam>
       </div>
-      <!-- <div>
-        <img *ngIf="webcamImage" [src]="imageAsDataUrl" #snapShot />
-      </div> -->
       <img
+        alt=""
         *ngIf="errors?.length > 0 || !showWebcam"
         src="assets/icon/webcam.svg"
         id="image-icon"
@@ -259,4 +248,4 @@
       </ion-item>
     </ion-card>
   </div>
-</ion-content>
+</div>

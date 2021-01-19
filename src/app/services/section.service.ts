@@ -18,6 +18,10 @@ export class SectionService {
     );
   }
 
+  getSection(id: number): Observable<Section> {
+    return this.http.get<Section>(`${environment.JAVA_API}/sections/${id}`);
+  }
+
   addSection(section: AddSection): Observable<Section> {
     return this.http.post<Section>(`${environment.JAVA_API}/sections`, section);
   }

@@ -1,0 +1,31 @@
+<div *ngIf="isLoaded">
+  <ion-card *ngIf="sessions?.length > 0">
+    <ion-list>
+      <ion-item class="ion-no-padding">
+        <div class="list-row">
+          <ion-label class="item-col-label">Created At</ion-label>
+          <ion-label class="item-col-label">N. Students</ion-label>
+          <ion-label class="item-col-label">Status</ion-label>
+        </div>
+      </ion-item>
+      <ion-item class="ion-no-padding" *ngFor="let session of sessions">
+        <div class="list-row">
+          <span class="item-col">
+            {{ session.createdDate | timeSince }} ago
+          </span>
+          <span class="item-col">
+            <span class="truncate">{{ session.students?.length }}</span>
+          </span>
+          <span class="item-col">
+            <span class="truncate">{{ session.end ? 'Ended' : 'Started' }}</span>
+          </span>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+  <div *ngIf="!sessions?.length" class="no-sessions">
+    <img src="assets/icon/empty.svg" class="no-sessions-icon" alt="" />
+    <h3 style="text-align: center">There are no sessions yet.</h3>
+  </div>
+  
+</div>

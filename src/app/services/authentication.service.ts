@@ -42,6 +42,14 @@ export class AuthenticationService {
       const roles = await Storage.get({ key: 'roles' });
       if (roles && roles.value) {
         this.privateRoles = roles.value as 'ROLE_USER' | 'ROLE_MODERATOR';
+        if (!this.roles) {
+          this.roles = new BehaviorSubject<'ROLE_USER' | 'ROLE_MODERATOR'>(
+            null
+          );
+        }
+        if (!this.isAuthenticated) {
+          this.isAuthenticated = new BehaviorSubject<boolean>(null);
+        }
         this.roles.next(this.privateRoles);
         this.isAuthenticated.next(true);
         return;

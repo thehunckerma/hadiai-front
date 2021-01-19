@@ -1,3 +1,33 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-header>
+    <ion-toolbar class="bar" color="gray">
+      <ion-row class="ion-justify-content-between">
+        <ion-title>TODO...</ion-title>
+        <ion-button
+          color="danger"
+          fill="clear"
+          class="ion-margin-end"
+          (click)="authService.logoutAndNavigateToLogin()"
+        >
+          Logout
+        </ion-button>
+      </ion-row>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-router-outlet></ion-router-outlet>
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="dashboard">
+          <ion-icon name="apps"></ion-icon>
+          <ion-label>Dashboard</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="profile">
+          <ion-icon name="person"></ion-icon>
+          <ion-label>Profile</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-content>
 </ion-app>

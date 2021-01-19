@@ -1,0 +1,33 @@
+.list-row {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 1vw;
+}
+.no-sessions-icon {
+  height: 30vh;
+}
+.no-sessions {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 10vh;
+}
+.item-col,
+.item-col-label {
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+}
+.item-col {
+  font-weight: 300;
+}
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

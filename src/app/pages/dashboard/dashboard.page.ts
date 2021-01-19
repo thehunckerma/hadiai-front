@@ -15,8 +15,8 @@ export class DashboardPage implements OnInit {
   roles: 'ROLE_USER' | 'ROLE_MODERATOR';
   sections: Array<Section>;
   isLoaded = false;
-  sectionName: string = '';
-  sectionDescription: string = '';
+  sectionName = '';
+  sectionDescription = '';
 
   constructor(
     private alertCtrl: AlertController,
@@ -25,7 +25,6 @@ export class DashboardPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    
     this.authService.roles.subscribe(
       (roles: 'ROLE_USER' | 'ROLE_MODERATOR') => {
         if (!!roles) {

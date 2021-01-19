@@ -1,0 +1,33 @@
+h1 {
+  margin: 20px 0;
+}
+#container {
+  padding: 1rem;
+}
+.list-row {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  padding: 5px 1vw;
+}
+ion-input {
+  --placeholder-font-weight: 400;
+  --placeholder-opacity: 0.8;
+}
+#divider {
+  width: 100%;
+  border-bottom: 1px solid #eeeeee;
+}
+.item-col {
+  width: 50%;
+  font-weight: 300;
+}
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.bold {
+  font-weight: 400;
+}

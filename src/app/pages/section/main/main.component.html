@@ -1,0 +1,53 @@
+<div id="container">
+  <h1>{{ section?.name }}</h1>
+  <ion-card *ngIf="!!section">
+    <ion-list>
+      <ion-item class="ion-no-padding">
+        <div class="list-row">
+          <span class="item-col bold">Name</span>
+          <span class="item-col">
+            <span class="truncate">{{ section.name }}</span>
+          </span>
+        </div>
+      </ion-item>
+      <ion-item class="ion-no-padding">
+        <div class="list-row">
+          <span class="item-col bold">Description</span>
+          <span class="item-col">
+            <span class="truncate">{{
+              section.description ? section.description : '—'
+            }}</span>
+          </span>
+        </div>
+      </ion-item>
+      <ion-item class="ion-no-padding">
+        <div class="list-row">
+          <span class="item-col bold">Token</span>
+          <span class="item-col">
+            <span class="truncate">{{ section.token }}</span>
+          </span>
+        </div>
+      </ion-item>
+      <ion-item class="ion-no-padding">
+        <div class="list-row">
+          <span class="item-col bold">Last Modified</span>
+          <span class="item-col">
+            <span class="truncate"
+              >{{ section.lastModifiedDate | timeSince }} ago</span
+            >
+          </span>
+        </div>
+      </ion-item>
+      <ion-item class="ion-no-padding">
+        <div class="list-row">
+          <span class="item-col bold">Created At</span>
+          <span class="item-col">
+            <span class="truncate"
+              >{{ section.createdDate | timeSince }} ago</span
+            >
+          </span>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+</div>
