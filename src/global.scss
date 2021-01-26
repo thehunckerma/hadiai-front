@@ -20,8 +20,10 @@ input:-webkit-autofill:active {
 }
 
 ion-segment-button {
+  
   .segment-button-indicator {
     display: none !important;
+    --padding-bottom:5rem;
   }
 } // TODO ....
 

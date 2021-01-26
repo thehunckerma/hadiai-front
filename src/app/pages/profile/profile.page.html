@@ -1,4 +1,4 @@
-<div fullscreen="true" slot="fixed">
+<div slot="fixed">
   <ion-card class="profile-card"
     ><div class="card">
       <div class="avatar">
@@ -6,11 +6,11 @@
       </div>
     </div>
     <ion-item>
-      <ion-label>{{user.id}}</ion-label>
+      <ion-label>{{credentials.fullname}}</ion-label>
     </ion-item>
-    <ion-item> <ion-label>{{user.username}}</ion-label> </ion-item>
+    <ion-item> <ion-label>{{credentials.username}}</ion-label> </ion-item>
     <ion-item>
-      <ion-label>{{user.email}}</ion-label>
+      <ion-label>{{credentials.email}}</ion-label>
     </ion-item>
     <ion-button
       type="button"

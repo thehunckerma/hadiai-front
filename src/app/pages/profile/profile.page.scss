@@ -11,7 +11,7 @@ ion-label{
 }
 
 .header {
-  height:8rem; // 20vh;
+  height: 20vh;
  
 }
 .avatar {
@@ -37,4 +37,8 @@ img {
   padding: 4.5rem;
   height: calc(100vh - (200px + 56px));
   overflow: hidden;
+}
+ion-item:last-child {
+  --inner-border-width: 0 0 0 0;
+  background-color: red;
 }
