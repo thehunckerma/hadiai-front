@@ -4,10 +4,11 @@
       <ion-row class="ion-justify-content-between">
         <ion-title>TODO...</ion-title>
         <ion-button
+          *ngIf="isAuthenticated"
           color="danger"
           fill="clear"
           class="ion-margin-end"
-          (click)="authService.logoutAndNavigateToLogin()"
+          (click)="authService.logout()"
         >
           Logout
         </ion-button>
@@ -16,7 +17,7 @@
   </ion-header>
   <ion-content>
     <ion-router-outlet></ion-router-outlet>
-    <ion-tabs>
+    <ion-tabs *ngIf="isAuthenticated">
       <ion-tab-bar slot="bottom">
         <ion-tab-button tab="dashboard">
           <ion-icon name="apps"></ion-icon>

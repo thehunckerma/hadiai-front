@@ -6,5 +6,11 @@ import { AuthenticationService } from './services/authentication.service';
   templateUrl: 'app.component.html',
 })
 export class AppComponent {
-  constructor(public authService: AuthenticationService) {}
+  isAuthenticated: boolean;
+
+  constructor(public authService: AuthenticationService) {
+    this.authService.isAuthenticated.subscribe((isAuthenticated: boolean) => {
+      this.isAuthenticated = isAuthenticated;
+    });
+  }
 }

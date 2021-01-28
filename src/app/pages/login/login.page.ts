@@ -39,27 +39,28 @@ export class LoginPage implements OnInit {
     const loading = await this.loadingController.create();
     await loading.present();
 
-    this.authService.login(this.credentials.value).subscribe(
-      async () => {
-        await loading.dismiss();
-        this.router.navigateByUrl('/dashboard', { replaceUrl: true });
-      },
-      async (res) => {
-        await loading.dismiss();
-        const alert = await this.alertController.create({
-          header: 'Login failed',
-          message: res
-            ? res.error
-              ? res.error.error
+    this.authService
+      .login(this.credentials.value)
+      .subscribe(
+        () => {
+          window.location.reload();
+          this.router.navigate(['/dashboard']);
+        },
+        async (res) => {
+          const alert = await this.alertController.create({
+            header: 'Login failed',
+            message: res
+              ? res.error
                 ? res.error.error
+                  ? res.error.error
+                  : 'Unkown error'
                 : 'Unkown error'
-              : 'Unkown error'
-            : 'Unkown error',
-          buttons: ['OK'],
-        });
-
-        await alert.present();
-      }
-    );
+              : 'Unkown error',
+            buttons: ['OK'],
+          });
+          await alert.present();
+        }
+      )
+      .add(async () => await loading.dismiss());
   }
 }

@@ -59,9 +59,9 @@
         class="errors"
       >
         <span *ngIf="password?.errors?.required">Password is required</span>
-        <span *ngIf="password?.errors?.minlength"
-          >Password must be at least 6 characters</span
-        >
+        <span *ngIf="password?.errors?.minlength">
+          Password must be at least 6 characters
+        </span>
       </div>
     </div>
 

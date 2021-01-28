@@ -22,7 +22,6 @@ const { Storage } = Plugins;
 })
 export class NextSignupPage implements OnInit {
   shouldLoad = false;
-  showTraining = false;
   isImageCollectingStarted = false;
   isImageCollectingFinished = false;
   radio = 'student';
@@ -157,58 +156,69 @@ export class NextSignupPage implements OnInit {
   async signup() {
     const loading = await this.loadingController.create();
     await loading.present();
-
-    this.authService.signup(this.credentials, 'mod').subscribe(
-      async () => {
-        await Storage.remove({
-          key: 'stringified-creds',
+    let role: string;
+    switch (this.radio) {
+      case 'student':
+        role = 'user';
+        break;
+      case 'teacher':
+        role = 'moderator';
+        break;
+      default:
+        const alert = await this.alertController.create({
+          header: 'Invalid credentials, please try again!',
+          message:
+            'Something wrong happened, please contact the administrator.',
+          buttons: ['OK'],
         });
-        const toast = await this.toastController.create({
-          header: 'Sign up successfull',
-          duration: 1500000,
-          position: 'bottom',
-          color: 'primary',
-        });
-        toast.present();
-        await loading.dismiss();
-        this.router.navigateByUrl('/home', { replaceUrl: true });
-      },
-      async (res: any) => {
-        console.log(res);
-        let alert: any;
-        await loading.dismiss();
-        if (!!res && !!res.error && !!res.error.message) {
-          alert = await this.alertController.create({
-            header: 'Invalid credentials, please try again!',
-            message: res.error.message,
-            buttons: ['OK'],
-          });
-        } else {
-          alert = await this.alertController.create({
-            header: 'Invalid credentials, please try again!',
-            message: res
-              ? res.error
-                ? res.error.error
-                  ? res.error.error
-                  : 'Unkown error'
-                : 'Unkown error'
-              : 'Unkown error',
-            buttons: ['OK'],
-          });
-        }
         await alert.present();
-      }
-    );
-  }
-
-  proceed(): void {
-    if (this.isImageValid) {
-      if (this.radio === 'teacher') {
-        this.signup();
-      } else {
-        this.showTraining = true;
-      }
+        break;
     }
+    this.authService
+      .signup(this.credentials, role)
+      .subscribe(
+        async () => {
+          // const toast = await this.toastController.create({
+          //   header: 'You have successfully signed up',
+          //   duration: 2000,
+          //   position: 'bottom',
+          //   color: 'primary',
+          // });
+          // toast.present();
+          await Storage.remove({
+            key: 'stringified-creds',
+          });
+          window.location.reload();
+          this.router.navigate(['/dashboard']);
+        },
+        async (res: any) => {
+          console.log(res);
+          let alert: any;
+          if (!!res && !!res.error && !!res.error.message) {
+            alert = await this.alertController.create({
+              header: 'Invalid credentials, please try again!',
+              message: res.error.message,
+              buttons: ['OK'],
+            });
+          } else {
+            alert = await this.alertController.create({
+              header: 'Invalid credentials, please try again!',
+              message: res
+                ? res.error
+                  ? res.error.error
+                    ? res.error.error
+                    : 'Unkown error'
+                  : 'Unkown error'
+                : 'Unkown error',
+              buttons: ['OK'],
+            });
+          }
+          await alert.present();
+        }
+      )
+      .add(async () => {
+        await loading.dismiss();
+      });
   }
 
   cameraWasSwitched(deviceId: string): void {
@@ -218,41 +228,5 @@ export class NextSignupPage implements OnInit {
   resetWebCam(): void {
     this.webcamImage = null;
     this.imageAsDataUrl = '';
-  }
-
-  // Image training related stuff
-
-  startTakingTrainingImages(): void {
-    this.isImageCollectingStarted = true;
-  }
-  cancel(): void {
-    if (this.isImageCollectingStarted) {
-      this.isImageCollectingStarted = false;
-    } else {
-      this.showTraining = false;
-      this.resetWebCam();
-    }
-  }
-
-  handleTrainingImage(webcamImage: WebcamImage): void {
-    const base64 = webcamImage.imageAsDataUrl;
-
-    fetch(base64)
-      .then((r: Response) => r.blob())
-      .then((blob: Blob) => {
-        const imgBody = new FormData();
-        imgBody.append('image', new File([blob], 'bruh.png'));
-
-        this.faceDetectionService
-          .detectFace(imgBody)
-          .subscribe((resp: FaceDetectionResp) => {
-            if (resp.success) {
-              this.imageAsDataUrl = 'data:image/jpeg;base64,' + resp.image;
-              this.isImageValid = resp.num_faces === 1;
-            } else {
-              // raise error
-            }
-          });
-      });
   }
 }
