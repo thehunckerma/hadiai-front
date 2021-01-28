@@ -48,7 +48,7 @@ export class AuthenticationService {
           );
         }
         if (!this.isAuthenticated) {
-          this.isAuthenticated = new BehaviorSubject<boolean>(null);
+          this.isAuthenticated = new BehaviorSubject<boolean>(true);
         }
         this.roles.next(this.privateRoles);
         this.isAuthenticated.next(true);
@@ -60,7 +60,10 @@ export class AuthenticationService {
 
   login(credentials: { username: string; password: string }): Observable<void> {
     return this.http
-      .post<AuthResp>(`${environment.JAVA_API}/auth/signin`, credentials)
+      .post<AuthResp>(`${environment.JAVA_API}/auth/signin`, {
+        username: credentials.username.trim(),
+        password: credentials.password.trim(),
+      })
       .pipe(switchMap(this.setUserData), tap(this.loadUserData));
   }
 
@@ -74,22 +77,37 @@ export class AuthenticationService {
   ): Observable<void> {
     return this.http
       .post<AuthResp>(
-        `${environment.JAVA_API}/auth/signup/${
-          role === 'mod' ? 'moderator' : 'user'
-        }`,
+        `${environment.JAVA_API}/auth/signup/${role}`,
         credentials
       )
       .pipe(switchMap(this.setUserData), tap(this.loadUserData));
   }
 
-  logout(): Promise<void> {
-    this.isAuthenticated.next(false);
-    return Storage.remove({ key: 'accessToken' });
+  validate(credentials: {
+    email: string;
+    username: string;
+  }): Observable<{ message: string } | boolean> {
+    return this.http.get<{ message: string } | boolean>(
+      `${environment.JAVA_API}/auth/signup/validate?username=${credentials.username}&email=${credentials.email}`
+    );
   }
 
-  async logoutAndNavigateToLogin() {
-    await this.logout();
-    this.router.navigateByUrl('/login', { replaceUrl: true });
+  deleteUserData(): Observable<void> {
+    let observable$: Observable<void> = from(
+      Storage.remove({ key: 'accessToken' })
+    );
+    ['roles', 'tokenType', 'email', 'username', 'id'].forEach((key) => {
+      observable$ = concat(observable$, from(Storage.remove({ key })));
+    });
+    return observable$;
+  }
+
+  logout() {
+    this.deleteUserData().subscribe(() => {
+      this.isAuthenticated.next(false);
+      window.location.reload();
+      this.router.navigate(['/login']);
+    });
   }
 
   private setUserData(data: AuthResp): Observable<void> {
@@ -98,15 +116,17 @@ export class AuthenticationService {
     );
     for (const element in data) {
       if (Object.prototype.hasOwnProperty.call(data, element)) {
-        if (element === 'roles') {
-          continue;
+        if (element !== 'roles') {
+          const userData = data[element];
+          observable$ = concat(
+            observable$,
+            from(Storage.set({ key: element, value: userData }))
+          );
         }
-        const userData = data[element];
-        observable$ = concat(
-          observable$,
-          from(Storage.set({ key: element, value: userData }))
-        );
       }
+    }
+    if (!this.isAuthenticated) {
+      this.isAuthenticated = new BehaviorSubject<boolean>(null);
     }
     return observable$;
   }

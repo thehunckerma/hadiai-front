@@ -12,38 +12,38 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: './pages/dashboard/dashboard.module#DashboardPageModule',
-    // canLoad: [NotAuthGuard], // Prevent authenticated users from accessing this page
+    canActivate: [AuthGuard], // Prevent authenticated users from accessing this page
   },
   {
     path: 'class',
     loadChildren: './pages/section/section.module#SectionPageModule',
-    // canLoad: [AuthGuard], // Secure all child pages from unauthenticated clients
+    canActivate: [AuthGuard], // Secure this page from unauthenticated clients
   },
   {
     path: 'login',
     loadChildren: './pages/login/login.module#LoginPageModule',
-    // canLoad: [NotAuthGuard], // Prevent authenticated users from accessing this page
+    canActivate: [NotAuthGuard], // Prevent authenticated users from accessing this page
   },
   {
     path: 'signup',
     loadChildren: './pages/signup/signup.module#SignupPageModule',
-    // canLoad: [NotAuthGuard], // Prevent authenticated users from accessing this page
+    canActivate: [NotAuthGuard], // Prevent authenticated users from accessing this page
   },
   {
     path: 'next',
     loadChildren: './pages/next-signup/next-signup.module#NextSignupPageModule',
-    // canLoad: [NotAuthGuard], // Prevent authenticated users from accessing this page
+    canActivate: [NotAuthGuard], // Prevent authenticated users from accessing this page
   },
   {
     path: 'profile',
     loadChildren: './pages/profile/profile.module#ProfilePageModule',
-    // canLoad: [NotAuthGuard], // Prevent authenticated users from accessing this page
+    canActivate: [AuthGuard], // Secure this page from unauthenticated clients
   },
-  {
-    path: 'update',
-    loadChildren: './pages/update/update.module#UpdatePageModule',
-    // canLoad: [NotAuthGuard], // Prevent authenticated users from accessing this page
-  },
+  // {
+  //   path: 'update',
+  //   loadChildren: './pages/update/update.module#UpdatePageModule',
+  //   canActivate: [AuthGuard], // Secure this page from unauthenticated clients
+  // },
   {
     path: 'not-found',
     loadChildren: './pages/not-found/not-found.module#NotFoundPageModule',

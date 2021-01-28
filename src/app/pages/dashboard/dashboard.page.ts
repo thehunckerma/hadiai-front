@@ -40,7 +40,6 @@ export class DashboardPage implements OnInit {
       (resp: Array<Section>) => {
         this.isLoaded = true;
         this.sections = resp;
-        console.log(resp);
       },
       (error: any) => {
         console.log(error);
@@ -62,7 +61,6 @@ export class DashboardPage implements OnInit {
             this.sectionName = '';
             this.sectionDescription = '';
             this.getAllSections(this.roles === 'ROLE_MODERATOR' ? 'mod' : null);
-            console.log(resp);
           },
           (error: any) => {
             console.log(error);
