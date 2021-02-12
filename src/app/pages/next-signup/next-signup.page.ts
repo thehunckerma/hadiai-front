@@ -7,9 +7,9 @@ import {
   LoadingController,
   ToastController,
 } from '@ionic/angular';
-import { FaceDetectionResp } from '../../interfaces/face-detection-resp';
+import { FaceDetectionResp, UploadImageResp } from '../../interfaces/python';
 
-import { FaceDetectionService } from '../../services/face-detection.service';
+import { PythonService } from '../../services/python.service';
 import { AuthenticationService } from './../../services/authentication.service';
 
 import { Plugins } from '@capacitor/core';
@@ -57,10 +57,10 @@ export class NextSignupPage implements OnInit {
   private nextWebcam: Subject<boolean | string> = new Subject<
     boolean | string
   >();
-
+  private imgBody: FormData;
   windowWidth: number;
   constructor(
-    private faceDetectionService: FaceDetectionService,
+    private pythonService: PythonService,
     private authService: AuthenticationService,
     private alertController: AlertController,
     private toastController: ToastController,
@@ -137,11 +137,11 @@ export class NextSignupPage implements OnInit {
     fetch(base64)
       .then((r: Response) => r.blob())
       .then((blob: Blob) => {
-        const imgBody = new FormData();
-        imgBody.append('image', new File([blob], 'bruh.png'));
+        this.imgBody = new FormData();
+        this.imgBody.append('image', new File([blob], 'bruh.png'));
 
-        this.faceDetectionService
-          .detectFace(imgBody)
+        this.pythonService
+          .detectFace(this.imgBody)
           .subscribe((resp: FaceDetectionResp) => {
             if (resp.success) {
               this.imageAsDataUrl = 'data:image/jpeg;base64,' + resp.image;
@@ -166,58 +166,71 @@ export class NextSignupPage implements OnInit {
         break;
       default:
         const alert = await this.alertController.create({
-          header: 'Invalid credentials, please try again!',
-          message:
-            'Something wrong happened, please contact the administrator.',
+          header: 'Internal error',
+          message: 'Something wrong happened, please contact the administrator',
           buttons: ['OK'],
         });
         await alert.present();
         break;
     }
-    this.authService
-      .signup(this.credentials, role)
-      .subscribe(
-        async () => {
-          // const toast = await this.toastController.create({
-          //   header: 'You have successfully signed up',
-          //   duration: 2000,
-          //   position: 'bottom',
-          //   color: 'primary',
-          // });
-          // toast.present();
-          await Storage.remove({
-            key: 'stringified-creds',
+    this.pythonService
+      .uploadImage(this.imgBody)
+      .subscribe(async (resp: UploadImageResp) => {
+        if (!!resp && !!resp.uuid) {
+          this.credentials.image = resp.uuid;
+          this.authService
+            .signup(this.credentials, role)
+            .subscribe(
+              async () => {
+                // const toast = await this.toastController.create({
+                //   header: 'You have successfully signed up',
+                //   duration: 2000,
+                //   position: 'bottom',
+                //   color: 'primary',
+                // });
+                // toast.present();
+                await Storage.remove({
+                  key: 'stringified-creds',
+                });
+                window.location.reload();
+                this.router.navigate(['/dashboard']);
+              },
+              async (res: any) => {
+                console.log(res);
+                let alert: any;
+                if (!!res && !!res.error && !!res.error.message) {
+                  alert = await this.alertController.create({
+                    header: 'Invalid credentials, please try again!',
+                    message: res.error.message,
+                    buttons: ['OK'],
+                  });
+                } else {
+                  alert = await this.alertController.create({
+                    header: 'Invalid credentials, please try again!',
+                    message: res
+                      ? res.error
+                        ? res.error.error
+                          ? res.error.error
+                          : 'Unkown error'
+                        : 'Unkown error'
+                      : 'Unkown error',
+                    buttons: ['OK'],
+                  });
+                }
+                await alert.present();
+              }
+            )
+            .add(async () => {
+              await loading.dismiss();
+            });
+        } else {
+          const alert = await this.alertController.create({
+            header: 'Internal error',
+            message: 'Could not upload profile picture, please try again',
+            buttons: ['OK'],
           });
-          window.location.reload();
-          this.router.navigate(['/dashboard']);
-        },
-        async (res: any) => {
-          console.log(res);
-          let alert: any;
-          if (!!res && !!res.error && !!res.error.message) {
-            alert = await this.alertController.create({
-              header: 'Invalid credentials, please try again!',
-              message: res.error.message,
-              buttons: ['OK'],
-            });
-          } else {
-            alert = await this.alertController.create({
-              header: 'Invalid credentials, please try again!',
-              message: res
-                ? res.error
-                  ? res.error.error
-                    ? res.error.error
-                    : 'Unkown error'
-                  : 'Unkown error'
-                : 'Unkown error',
-              buttons: ['OK'],
-            });
-          }
-          await alert.present();
+          alert.present();
         }
-      )
-      .add(async () => {
-        await loading.dismiss();
       });
   }
 
