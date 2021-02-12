@@ -4,3 +4,6 @@ export interface FaceDetectionResp {
   faces: Array<Array<number>>;
   image: string;
 }
+export interface UploadImageResp {
+  uuid: string;
+}

@@ -1,4 +1,4 @@
-<div *ngIf="isLoaded">
+<div *ngIf="isLoaded" class="ion-margin-top">
   <ion-card *ngIf="sessions?.length > 0">
     <ion-list>
       <ion-item class="ion-no-padding">
@@ -17,7 +17,9 @@
             <span class="truncate">{{ session.students?.length }}</span>
           </span>
           <span class="item-col">
-            <span class="truncate">{{ session.end ? 'Ended' : 'Started' }}</span>
+            <span class="truncate">{{
+              session.end ? 'Ended' : 'Started'
+            }}</span>
           </span>
         </div>
       </ion-item>
@@ -27,5 +29,4 @@
     <img src="assets/icon/empty.svg" class="no-sessions-icon" alt="" />
     <h3 style="text-align: center">There are no sessions yet.</h3>
   </div>
-  
 </div>

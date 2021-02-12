@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewChecked } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { NavBarService } from '../../services/nav-bar.service';
 
 type Page = 'home' | 'students' | 'sessions' | 'statistics';
 @Component({
@@ -8,15 +9,36 @@ type Page = 'home' | 'students' | 'sessions' | 'statistics';
   templateUrl: 'section.page.html',
   styleUrls: ['section.page.scss'],
 })
-export class SectionPage {
+export class SectionPage implements AfterViewChecked {
   page: Page;
   id: string;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private navBarService: NavBarService
   ) {
-    console.log('bruh');
+    this.navBarService.topNavBarTitle$.subscribe(
+      (payload: { title: string; url: string }) => {
+        if (payload.url.includes('class/home')) {
+          this.page = 'home';
+        }
+      }
+    );
+  }
+
+  ngAfterViewChecked(): void {
+    document.querySelectorAll('ion-segment-button').forEach((e) => {
+      const ionSegmentButton = e.shadowRoot;
+      if (!!ionSegmentButton) {
+        const segmentButtonIndicator = ionSegmentButton.querySelector(
+          '.segment-button-indicator'
+        );
+        if (!!segmentButtonIndicator) {
+          segmentButtonIndicator.setAttribute('style', 'display: none');
+        }
+      }
+    });
   }
 
   ngOnInit() {
@@ -33,6 +55,33 @@ export class SectionPage {
 
   switchPage(page: Page) {
     this.page = page;
+    switch (page) {
+      case 'sessions':
+        this.navBarService.topNavBarTitle.next({
+          title: 'Sessions',
+          url: '',
+        });
+        break;
+      case 'students':
+        this.navBarService.topNavBarTitle.next({
+          title: 'Students',
+          url: '',
+        });
+        break;
+      case 'statistics':
+        this.navBarService.topNavBarTitle.next({
+          title: 'Statistics',
+          url: '',
+        });
+        break;
+
+      default:
+        this.navBarService.topNavBarTitle.next({
+          title: 'Class',
+          url: '',
+        });
+        break;
+    }
     this.location.replaceState('/class/' + page + '/' + this.id);
   }
 }
