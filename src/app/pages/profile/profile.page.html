@@ -1,26 +1,53 @@
-<div slot="fixed">
-  <ion-card class="profile-card"
-    ><div class="card">
+<ion-content> 
+ 
+  <ion-card >
+    <div class="profile-card">
+    <div class="img-card">
       <div class="avatar">
         <img src="assets/icon/avatar.png" alt="" />
       </div>
+      <ion-button color="default" fill="clear">
+        Edit Photo
+      </ion-button>
     </div>
-    <ion-item>
-      <ion-label>{{credentials.fullname}}</ion-label>
-    </ion-item>
-    <ion-item> <ion-label>{{credentials.username}}</ion-label> </ion-item>
-    <ion-item>
-      <ion-label>{{credentials.email}}</ion-label>
-    </ion-item>
-    <ion-button
-      type="button"
-      expand="block"
-      color="medium"
-      fill="clear"
-      class="ion-margin-top"
-      routerLink="/update"
-    >
-      Edit Profile
-    </ion-button>
+    <form>
+      <ion-list>
+        <div class="container">
+          <ion-item>
+            <ion-input type="text" value="Fullname"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input type="text" value="Username"></ion-input>
+          </ion-item>
+        </div>
+        <div class="container">
+          <ion-item>
+            <ion-input type="mail" value="Email"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input type="password" value="" placeholder="Password"></ion-input>
+          </ion-item>
+        </div>
+        <div class="container">
+          <ion-item>
+            <ion-input type="password" value="Fullname" placeholder="Old password"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input type="password" value="Username" placeholder="New password"></ion-input>
+          </ion-item>
+        </div>
+      </ion-list>
+     
+      <ion-button  
+      
+      type="submit" color="primary" style="position: absolute ; right:2rem ;margin-top: 1rem">
+      <ion-icon name="copy" style="margin-right: 0.5rem;"></ion-icon>
+         Save
+        
+      </ion-button>
+  
+    </form>
+  </div>
   </ion-card>
-</div>
+
+</ion-content>

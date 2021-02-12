@@ -1,44 +1,42 @@
 .profile-card {
-  width: 95%;
+  width: 100%;
   display: block;
   margin: 0 auto;
   margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
+  padding: 2rem;
 
 }
-ion-label{
-  padding-top: 1.4rem;
-}
-
-.header {
-  height: 20vh;
+.container{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
  
 }
-.avatar {
-  width: 8rem; //40vw
-  height: 8rem;
-  position: relative;
-  margin: 0 auto;
-  margin-right: 3rem;
-  margin-bottom: 6rem;
+.img-card{
+ display: inline-flex;
+ align-items: center;
+ padding-left: 1.5rem;
+}
 
+ion-item{
+  width: 100%;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+.avatar {
+  width: 7rem; //40vw
+  height: 7rem;
+  position: relative;
+  
 }
 img {
-  display: block;
-  border-radius: 50%;
-  position: absolute;
-  bottom: calc(-1 * (80px + 4px)); // -42px;
-  border: 8px;
-  background-color: #fff;
+    display: block;
+    border-radius: 50%;
+    position: absolute;
+    border: 8px;
+    background-color: #fff;
 }
 
-.card-body {
-  background-color: #ffffff;
-  padding: 4.5rem;
-  height: calc(100vh - (200px + 56px));
-  overflow: hidden;
-}
-ion-item:last-child {
-  --inner-border-width: 0 0 0 0;
-  background-color: red;
-}
+
