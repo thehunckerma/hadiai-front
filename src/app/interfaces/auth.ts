@@ -1,8 +1,8 @@
 export interface AuthResp {
   id: number;
   username: string;
+  image: string;
   email: string;
-  roles: 'ROLE_USER' | 'ROLE_MODERATOR';
+  roles: any;
   accessToken: string;
-  tokenType: 'Bearer';
 }

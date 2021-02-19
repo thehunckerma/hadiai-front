@@ -4,7 +4,7 @@ import { AlertController } from '@ionic/angular';
 import { AuthenticationService } from '../../services/authentication.service';
 import { SectionService } from '../../services/section.service';
 
-import { Section, AddSection } from '../../interfaces/section';
+import { Section } from '../../interfaces/section';
 
 @Component({
   selector: 'app-dashboard',

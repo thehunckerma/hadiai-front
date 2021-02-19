@@ -1,50 +1,66 @@
-<ion-content>
-
-  <ion-card>
-    <div class="profile-card">
-      <div class="img-card">
-        <div class="avatar">
-          <img src="assets/icon/avatar.png" alt="" />
-        </div>
-        <ion-button color="default" fill="clear">
-          Edit Photo
-        </ion-button>
+<div class="container">
+  <ion-card *ngIf="isLoaded">
+    <h2 style="margin-left: 2rem">Edit/view your profile settings</h2>
+    <div class="card">
+      <div class="avatar">
+        <input
+          type="file"
+          id="uploadInput"
+          style="position: absolute; top: -9999px"
+          (change)="upload($event)"
+        />
+        <label for="uploadInput">
+          <img [src]="imagePath" alt="" style="width: 100%" />
+          <div class="upload-icon">
+            <svg viewBox="0 0 512 512">
+              <g>
+                <path
+                  fill="white"
+                  d="m182.461 155.48 49.539-49.539v262.059a24 24 0 0 0 48 0v-262.059l49.539 49.539a24 24 0 1 0 33.941-33.941l-90.509-90.51a24 24 0 0 0 -33.942 0l-90.509 90.51a24 24 0 1 0 33.941 33.941z"
+                />
+                <path
+                  fill="white"
+                  d="m464 232a24 24 0 0 0 -24 24v184h-368v-184a24 24 0 0 0 -48 0v192a40 40 0 0 0 40 40h384a40 40 0 0 0 40-40v-192a24 24 0 0 0 -24-24z"
+                />
+              </g>
+            </svg>
+          </div>
+        </label>
       </div>
-      <form>
+      <form class="form">
         <ion-list>
-          <div class="container">
-            <ion-item>
-              <ion-input type="text" value="Fullname" placeholder="Fullname"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input type="text" value="Username" placeholder="Username"></ion-input>
-            </ion-item>
-          </div>
-          <div class="container">
-            <ion-item>
-              <ion-input type="mail" value="Email" placeholder="Email"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input type="password" value="" placeholder="Password"></ion-input>
-            </ion-item>
-          </div>
-          <div class="container">
-            <ion-item>
-              <ion-input type="password"  placeholder="Old password" ></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input type="password"  placeholder="New password"></ion-input>
-            </ion-item>
-          </div>
+          <ion-item>
+            <ion-input
+              type="text"
+              [(ngModel)]="username"
+              placeholder="Username"
+              name="username"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input
+              type="text"
+              [(ngModel)]="email"
+              placeholder="Email"
+              name="email"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input
+              type="password"
+              [(ngModel)]="password"
+              placeholder="Password"
+              name="password"
+            ></ion-input>
+          </ion-item>
         </ion-list>
-
-        <ion-button type="submit" color="primary" style="position: absolute ; right:2rem ;margin-top: 1rem">
-          <ion-icon name="copy" style="margin-right: 0.5rem;"></ion-icon>
-          Save
-        </ion-button>
-
+        <div class="send-button">
+          <ion-button (click)="send()" color="primary">
+            <ion-icon name="copy" style="margin-right: 0.5rem"></ion-icon>
+            Save
+          </ion-button>
+        </div>
       </form>
     </div>
   </ion-card>
-
-</ion-content>
+</div>

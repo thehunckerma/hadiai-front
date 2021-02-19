@@ -27,16 +27,12 @@ export class SignupPage implements OnInit {
 
   ngOnInit() {
     this.credentials = this.fb.group({
-      fullname: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
-  get fullname() {
-    return this.credentials.get('fullname');
-  }
   get email() {
     return this.credentials.get('email');
   }

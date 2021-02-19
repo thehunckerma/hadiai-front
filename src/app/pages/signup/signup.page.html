@@ -10,19 +10,6 @@
       <ion-item>
         <ion-input
           type="name"
-          placeholder="Full name"
-          formControlName="fullname"
-        ></ion-input>
-      </ion-item>
-      <div
-        *ngIf="(fullname?.dirty || fullname?.touched) && fullname?.errors"
-        class="errors"
-      >
-        <span *ngIf="fullname?.errors?.required">Full name is required</span>
-      </div>
-      <ion-item>
-        <ion-input
-          type="name"
           placeholder="User name"
           formControlName="username"
         ></ion-input>

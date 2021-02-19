@@ -142,12 +142,17 @@ export class NextSignupPage implements OnInit {
 
         this.pythonService
           .detectFace(this.imgBody)
-          .subscribe((resp: FaceDetectionResp) => {
+          .subscribe(async (resp: FaceDetectionResp) => {
             if (resp.success) {
               this.imageAsDataUrl = 'data:image/jpeg;base64,' + resp.image;
               this.isImageValid = resp.num_faces === 1;
             } else {
-              // raise error
+              const alert = await this.alertController.create({
+                header: 'Failed to process the image',
+                message: 'Please try again with another image',
+                buttons: ['OK'],
+              });
+              await alert.present();
             }
           });
       });
