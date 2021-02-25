@@ -141,7 +141,7 @@ export class NextSignupPage implements OnInit {
         this.imgBody.append('image', new File([blob], 'bruh.png'));
 
         this.pythonService
-          .detectFace(this.imgBody)
+          .detect(this.imgBody)
           .subscribe(async (resp: FaceDetectionResp) => {
             if (resp.success) {
               this.imageAsDataUrl = 'data:image/jpeg;base64,' + resp.image;

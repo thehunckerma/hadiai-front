@@ -1,29 +1,131 @@
-<div *ngIf="isLoaded" class="ion-margin-top">
-  <ion-card *ngIf="sessions?.length > 0">
+<div *ngIf="isLoaded" class="container">
+  <ion-card class="ion-margin-top">
+    <div class="list-row">
+      <div
+        style="
+          width: 100%;
+          font-weight: normal;
+          font-size: medium;
+          color: black;
+        "
+      >
+        Token : <span style="font-weight: 500">{{ token }}</span>
+      </div>
+      <ion-button
+        size="default"
+        fill="clear"
+        class="ion-margin-start"
+        (click)="startSession()"
+        *ngIf="areAllSessionEnded"
+      >
+        Start New Session
+      </ion-button>
+      <ion-button
+        size="default"
+        color="danger"
+        fill="clear"
+        class="ion-margin-start"
+        (click)="stopSectionModal()"
+        *ngIf="!areAllSessionEnded"
+      >
+        Stop Current Session
+      </ion-button>
+    </div>
+  </ion-card>
+  <ion-card *ngIf="sessions?.length > 0 && !isShowPresence">
     <ion-list>
       <ion-item class="ion-no-padding">
         <div class="list-row">
-          <ion-label class="item-col-label">Created At</ion-label>
-          <ion-label class="item-col-label">N. Students</ion-label>
+          <ion-label class="item-col-label">N.</ion-label>
+          <ion-label class="item-col-label">Date</ion-label>
+          <ion-label class="item-col-label">Started</ion-label>
+          <ion-label class="item-col-label">Stopped</ion-label>
           <ion-label class="item-col-label">Status</ion-label>
         </div>
       </ion-item>
-      <ion-item class="ion-no-padding" *ngFor="let session of sessions">
+      <ion-item
+        button
+        (click)="showPresence(session.id)"
+        class="ion-no-padding"
+        *ngFor="let session of sessions"
+      >
         <div class="list-row">
+          <span class="item-col">{{ session.id }}</span>
+          <span class="item-col">
+            {{ session.createdDate | date: 'medium' }}
+          </span>
           <span class="item-col">
             {{ session.createdDate | timeSince }} ago
           </span>
           <span class="item-col">
-            <span class="truncate">{{ session.students?.length }}</span>
+            {{
+              session.end
+                ? (session.lastModifiedDate | timeSince) + ' ago'
+                : '—'
+            }}
           </span>
           <span class="item-col">
-            <span class="truncate">{{
-              session.end ? 'Ended' : 'Started'
-            }}</span>
+            <ion-text
+              style="font-weight: 500"
+              color="primary"
+              *ngIf="!session.end"
+              class="truncate"
+            >
+              Started
+            </ion-text>
+            <ion-text *ngIf="session.end" class="truncate">Stopped</ion-text>
           </span>
         </div>
       </ion-item>
     </ion-list>
+  </ion-card>
+  <div
+    *ngIf="isShowPresence"
+    style="
+      display: flex;
+      justify-content: flex-end;
+      justify-items: flex-end;
+      width: 100%;
+    "
+  >
+    <ion-button
+      (click)="isShowPresence = false"
+      color="danger"
+      style="margin-right: 10px"
+    >
+      <ion-icon slot="icon-only" name="close"></ion-icon>
+    </ion-button>
+  </div>
+  <ion-card *ngIf="isShowPresence">
+    <ion-list *ngIf="presenceList.length > 0">
+      <ion-item class="ion-no-padding">
+        <div class="list-row">
+          <ion-label class="item-col-label">Username</ion-label>
+          <ion-label class="item-col-label">Email</ion-label>
+          <ion-label class="item-col-label">Presence</ion-label>
+        </div>
+      </ion-item>
+      <ion-item class="ion-no-padding" *ngFor="let presence of presenceList">
+        <div class="list-row">
+          <span class="item-col">{{ presence.username }}</span>
+          <span class="item-col">
+            <span class="truncate">{{ presence.email }}</span>
+          </span>
+          <span class="item-col">
+            <span class="truncate"
+              >{{ presence.presencePercentage | number }} %</span
+            >
+          </span>
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <div *ngIf="presenceList.length === 0" class="nothing">
+      <img src="assets/icon/woman.svg" class="nothing-icon-big" alt="" />
+      <h3 style="text-align: center; font-weight: 100">
+        There are no students in this session.
+      </h3>
+    </div>
   </ion-card>
   <div *ngIf="!sessions?.length" class="no-sessions">
     <img src="assets/icon/empty.svg" class="no-sessions-icon" alt="" />

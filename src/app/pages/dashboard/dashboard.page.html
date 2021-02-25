@@ -28,13 +28,15 @@
     </ion-card>
     <ion-card *ngIf="roles === 'ROLE_USER'">
       <ion-row class="ion-justify-content-between">
-        <ion-input placeholder="Join section"></ion-input>
+        <ion-input placeholder="Join section" [(ngModel)]="token"></ion-input>
         <ion-button
           fill="clear"
           class="ion-margin-end"
+          (click)="joinSection()"
           style="margin-right: -0.2rem"
-          >JOIN</ion-button
         >
+          JOIN
+        </ion-button>
       </ion-row>
     </ion-card>
     <ion-card *ngIf="sections?.length > 0">
@@ -50,7 +52,24 @@
         </ion-item>
         <ion-item class="ion-no-padding" *ngFor="let section of sections">
           <div class="list-row">
-            <a [routerLink]="['/class/home', section.id]" class="item-col link">
+            <a
+              *ngIf="roles === 'ROLE_MODERATOR'"
+              [routerLink]="['/class/home', section.id]"
+              class="item-col link"
+            >
+              {{section.name}}
+            </a>
+            <a
+              *ngIf="roles === 'ROLE_USER' && section.sessionOn"
+              [routerLink]="['/class/present', section.id]"
+              class="item-col link"
+            >
+              {{section.name}}
+            </a>
+            <a
+              *ngIf="roles === 'ROLE_USER' && !section.sessionOn"
+              class="item-col link-disabled"
+            >
               {{section.name}}
             </a>
             <span class="item-col">
@@ -69,6 +88,13 @@
                 (click)="deleteSectionModal(section.id)"
               >
                 <ion-icon name="trash-outline"></ion-icon>
+              </ion-button>
+              <ion-button
+                *ngIf="roles === 'ROLE_USER'"
+                class="alert-wrapper"
+                (click)="quitSectionModal(section.id)"
+              >
+                <ion-icon name="log-out-outline"></ion-icon>
               </ion-button>
             </ion-buttons>
           </div>

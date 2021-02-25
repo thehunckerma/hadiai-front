@@ -39,11 +39,6 @@ const routes: Routes = [
     loadChildren: './pages/profile/profile.module#ProfilePageModule',
     canActivate: [AuthGuard], // Secure this page from unauthenticated clients
   },
-  // {
-  //   path: 'update',
-  //   loadChildren: './pages/update/update.module#UpdatePageModule',
-  //   canActivate: [AuthGuard], // Secure this page from unauthenticated clients
-  // },
   {
     path: 'not-found',
     loadChildren: './pages/not-found/not-found.module#NotFoundPageModule',

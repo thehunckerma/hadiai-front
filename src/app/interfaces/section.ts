@@ -6,6 +6,7 @@ export interface Section {
   name: string;
   description: string;
   token: string;
+  sessionOn: boolean;
   students: Array<User>;
   requests?: Array<User>;
   sessions?: any[];

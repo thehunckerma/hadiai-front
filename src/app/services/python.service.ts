@@ -10,9 +10,20 @@ import { FaceDetectionResp, UploadImageResp } from '../interfaces/python';
 export class PythonService {
   constructor(private http: HttpClient) {}
 
-  detectFace(image: FormData): Observable<FaceDetectionResp> {
+  detect(image: FormData): Observable<FaceDetectionResp> {
     return this.http.post<FaceDetectionResp>(
       `${environment.PYTHON_API}/detect`,
+      image
+    );
+  }
+
+  recognize(
+    sectionId: number,
+    imageUUID: string,
+    image: FormData
+  ): Observable<any> {
+    return this.http.post<any>(
+      `${environment.PYTHON_API}/recognize/${sectionId}/${imageUUID}`,
       image
     );
   }

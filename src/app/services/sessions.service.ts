@@ -17,4 +17,34 @@ export class SessionsService {
       `${environment.JAVA_API}/sessions/sections/${id}`
     );
   }
+
+  startSessions(id: number): Observable<Session> {
+    return this.http.get<Session>(
+      `${environment.JAVA_API}/sessions/sections/${id}/start`
+    );
+  }
+
+  stopSession(id: number): Observable<Session> {
+    return this.http.get<Session>(`${environment.JAVA_API}/sessions/${id}/end`);
+  }
+
+  getPresenceList(
+    sessionId: number
+  ): Observable<
+    Array<{
+      id: number;
+      username: string;
+      email: string;
+      presencePercentage: number;
+    }>
+  > {
+    return this.http.get<
+      Array<{
+        id: number;
+        username: string;
+        email: string;
+        presencePercentage: number;
+      }>
+    >(`${environment.JAVA_API}/presence/${sessionId}`);
+  }
 }

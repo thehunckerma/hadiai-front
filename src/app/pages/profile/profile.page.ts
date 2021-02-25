@@ -102,7 +102,7 @@ export class ProfilePage implements OnInit {
       const loading = await this.loadingController.create();
       await loading.present();
 
-      this.pythonService.detectFace(formData).subscribe(
+      this.pythonService.detect(formData).subscribe(
         async (resp: FaceDetectionResp) => {
           if (resp.success) {
             if (resp.num_faces === 1) {

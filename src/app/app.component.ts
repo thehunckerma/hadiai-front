@@ -27,7 +27,7 @@ export class AppComponent {
       .subscribe((event: NavigationStart) => {
         if (!!event && !!event.url) {
           const url: string = event.url;
-          if (url.includes('class/home')) {
+          if (url.includes('class/home') || url.includes('class/present')) {
             this.navBarService.topNavBarTitle.next({
               title: 'Class',
               url: url,

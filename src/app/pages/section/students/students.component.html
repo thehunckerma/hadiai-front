@@ -16,11 +16,11 @@
             <span class="truncate">{{ request.email }}</span>
           </span>
           <ion-buttons class="item-col">
-            <ion-button>
-              <ion-icon name="person-remove"></ion-icon>
+            <ion-button (click)="rejectJoinRequest(request.id)">
+              <ion-icon name="close-outline"></ion-icon>
             </ion-button>
-            <ion-button>
-              <ion-icon name="person-add"></ion-icon>
+            <ion-button (click)="approveJoinRequest(request.id)">
+              <ion-icon name="checkmark-outline"></ion-icon>
             </ion-button>
           </ion-buttons>
         </div>
@@ -29,7 +29,9 @@
   </ion-card>
   <div *ngIf="!requests?.length && students?.length > 0" class="nothing">
     <img src="assets/icon/woman.svg" class="nothing-icon" alt="" />
-    <h3 style="text-align: center; font-weight: 100">There are no requests.</h3>
+    <h3 style="text-align: center; font-weight: 100">
+      There are no requests currently.
+    </h3>
   </div>
   <h1 *ngIf="students?.length > 0 || requests?.length > 0">Students</h1>
   <ion-card *ngIf="students?.length > 0">
@@ -43,13 +45,13 @@
       </ion-item>
       <ion-item class="ion-no-padding" *ngFor="let student of students">
         <div class="list-row">
-          <span class="item-col"> {{ student.username }} </span>
+          <span class="item-col">{{ student.username }}</span>
           <span class="item-col">
             <span class="truncate">{{ student.email }}</span>
           </span>
           <ion-buttons class="item-col">
-            <ion-button>
-              <ion-icon name="person-remove"></ion-icon>
+            <ion-button (click)="removeUserModal(student.id)">
+              <ion-icon name="trash-outline"></ion-icon>
             </ion-button>
           </ion-buttons>
         </div>
@@ -59,11 +61,11 @@
   <div *ngIf="!students?.length && requests?.length > 0" class="nothing">
     <img src="assets/icon/woman.svg" class="nothing-icon" alt="" />
     <h3 style="text-align: center; font-weight: 100">
-      There are no students in this class.
+      There are no students in this class yet.
     </h3>
   </div>
   <div *ngIf="!students?.length && !requests?.length" class="nothing">
-    <img src="assets/icon/woman.svg" class="nothing-icon" alt="" />
+    <img src="assets/icon/woman.svg" class="nothing-icon-big" alt="" />
     <h3 style="text-align: center; font-weight: 100">
       There are no students/requests yet.
     </h3>

@@ -1,19 +1,19 @@
-<div>
+<div style="height: 100%">
   <div id="top-nav-bar">
-    <ion-segment-button value="call" (click)="switchPage('home')">
+    <ion-segment-button (click)="switchPage('home')">
       Class
     </ion-segment-button>
-    <ion-segment-button value="call" (click)="switchPage('sessions')">
+    <ion-segment-button (click)="switchPage('sessions')">
       Sessions
     </ion-segment-button>
-    <ion-segment-button value="call" (click)="switchPage('students')">
+    <ion-segment-button (click)="switchPage('students')">
       Students
     </ion-segment-button>
-    <ion-segment-button value="call" (click)="switchPage('statistics')">
+    <ion-segment-button (click)="switchPage('statistics')">
       Statistics
     </ion-segment-button>
   </div>
-  <div>
+  <div style="height: 100%">
     <app-main [id]="id" *ngIf="page === 'home'"></app-main>
     <app-students [id]="id" *ngIf="page === 'students'"></app-students>
     <app-statistics *ngIf="page === 'statistics'"></app-statistics>
