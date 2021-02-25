@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { WebcamInitError, WebcamImage, WebcamUtil } from 'ngx-webcam';
 import { Observable, Subject } from 'rxjs';
 import { timer } from 'rxjs/internal/observable/timer';
-import { FaceDetectionResp } from '../../../interfaces/python';
 import { PythonService } from '../../../services/python.service';
 import { takeWhile } from 'rxjs/internal/operators/takeWhile';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';

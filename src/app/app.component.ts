@@ -52,6 +52,16 @@ export class AppComponent {
               title: 'Statistics',
               url: url,
             });
+          } else if (url.includes('login')) {
+            this.navBarService.topNavBarTitle.next({
+              title: 'Log-in',
+              url: url,
+            });
+          } else if (url.includes('signup')) {
+            this.navBarService.topNavBarTitle.next({
+              title: 'Sign up',
+              url: url,
+            });
           } else {
             this.navBarService.topNavBarTitle.next({
               title: 'Dashboard',

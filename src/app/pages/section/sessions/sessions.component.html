@@ -1,4 +1,4 @@
-<div *ngIf="isLoaded" class="container">
+<ion-content *ngIf="isLoaded" class="container">
   <ion-card class="ion-margin-top">
     <div class="list-row">
       <div
@@ -127,10 +127,19 @@
       </h3>
     </div>
   </ion-card>
+  <ion-card class="welcome-card">
+    <ion-card-header>
+      <ion-card-subtitle>Number of Viewers per season for</ion-card-subtitle>
+      <ion-card-title>Game of Thrones</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #barChart></canvas>
+    </ion-card-content>
+  </ion-card>
   <div *ngIf="!sessions?.length" class="no-sessions">
     <img src="assets/icon/empty.svg" class="no-sessions-icon" alt="" />
     <h3 style="text-align: center; font-weight: 100">
       There are no sessions yet.
     </h3>
   </div>
-</div>
+</ion-content>

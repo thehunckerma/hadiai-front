@@ -1,4 +1,4 @@
-<div *ngIf="isLoaded" id="container">
+<ion-content *ngIf="isLoaded" id="container">
   <h1 *ngIf="students?.length > 0 || requests?.length > 0">Requests</h1>
   <ion-card *ngIf="requests?.length > 0">
     <ion-list>
@@ -70,4 +70,4 @@
       There are no students/requests yet.
     </h3>
   </div>
-</div>
+</ion-content>

@@ -1,18 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { Section } from '../../../interfaces/section';
-
+import { Chart } from 'chart.js';
 import { Session } from '../../../interfaces/session';
 import { SectionService } from '../../../services/section.service';
 import { SessionsService } from '../../../services/sessions.service';
+import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-sessions',
   templateUrl: './sessions.component.html',
   styleUrls: ['./sessions.component.scss'],
 })
-export class SessionsComponent implements OnInit {
+export class SessionsComponent implements OnInit, AfterViewInit {
   @Input() id: number;
 
   sessions: Array<Session>;
@@ -27,6 +28,12 @@ export class SessionsComponent implements OnInit {
     email: string;
     presencePercentage: number;
   }>;
+
+  @ViewChild('barChart', { static: false }) barChart;
+
+  bars: any;
+  colorArray: any;
+  chartInterval: any;
   constructor(
     private sessionsService: SessionsService,
     private sectionService: SectionService,
@@ -35,9 +42,45 @@ export class SessionsComponent implements OnInit {
     private router: Router
   ) {}
 
+  createBarChart() {
+    this.bars = new Chart(this.barChart.nativeElement, {
+      type: 'bar',
+      data: {
+        labels: ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8'],
+        datasets: [
+          {
+            label: 'Viewers in millions',
+            data: [2.5, 3.8, 5, 6.9, 6.9, 7.5, 10, 17],
+            backgroundColor: 'rgb(38, 194, 129)', // array should have same number of elements as number of dataset
+            borderColor: 'rgb(38, 194, 129)', // array should have same number of elements as number of dataset
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+              },
+            },
+          ],
+        },
+      },
+    });
+  }
+
   ngOnInit() {
     this.getAllSessions();
     this.getSection();
+
+    this.chartInterval = setInterval(() => {
+      if (this.barChart) {
+        clearInterval(this.chartInterval);
+        this.createBarChart();
+      }
+    }, 200);
   }
 
   getSection() {
