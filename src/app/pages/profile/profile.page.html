@@ -1,6 +1,10 @@
-<div class="container">
+<ion-content [scrollEvents]="true"
+(ionScrollStart)="logScrollStart()"
+(ionScroll)="logScrolling($event)"
+(ionScrollEnd)="logScrollEnd()">
+<div class="container" >
   <ion-card *ngIf="isLoaded">
-    <h2 style="margin-left: 2rem">Edit/view your profile settings</h2>
+    <h2 style="margin-left: 2rem">Edit - View your profile settings</h2>
     <div class="card">
       <div class="avatar">
         <input
@@ -64,3 +68,4 @@
     </div>
   </ion-card>
 </div>
+</ion-content>

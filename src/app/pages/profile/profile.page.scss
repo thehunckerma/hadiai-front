@@ -1,6 +1,7 @@
 .card,
 .container {
   padding: 2rem;
+  
 }
 .card {
   display: flex;
@@ -21,13 +22,13 @@
 }
 .avatar {
   position: relative;
-  max-width: 20rem;
-  max-height: 20rem;
-  width: 70%;
-  height: 70%;
+  max-width: 10rem;
+  max-height: 10rem;
+  width: 60%;
+  height: 60%;
   position: relative;
   transition: filter 0.2s;
-  margin: auto;
+  margin-left: 3rem;
   margin-bottom: 2rem;
 
   &:hover {
