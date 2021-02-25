@@ -17,6 +17,10 @@ export class SessionsService {
       `${environment.JAVA_API}/sessions/sections/${id}`
     );
   }
+  
+  getSession(id: number): Observable<Session> {
+    return this.http.get<Session>(`${environment.JAVA_API}/sessions/${id}`);
+  }
 
   startSessions(id: number): Observable<Session> {
     return this.http.get<Session>(
@@ -26,6 +30,27 @@ export class SessionsService {
 
   stopSession(id: number): Observable<Session> {
     return this.http.get<Session>(`${environment.JAVA_API}/sessions/${id}/end`);
+  }
+
+  getPresenceRaw(
+    sessionId: number,
+    userId: number
+  ): Observable<
+    Array<{
+      '@UUID': string;
+      id: number;
+      createdDate: string;
+      lastModifiedDate: string;
+    }>
+  > {
+    return this.http.get<
+      Array<{
+        '@UUID': string;
+        id: number;
+        createdDate: string;
+        lastModifiedDate: string;
+      }>
+    >(`${environment.JAVA_API}/presence/${sessionId}/${userId}/raw`);
   }
 
   getPresenceList(

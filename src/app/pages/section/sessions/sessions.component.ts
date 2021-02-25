@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { Section } from '../../../interfaces/section';
@@ -13,24 +13,29 @@ import { ViewChild } from '@angular/core';
   templateUrl: './sessions.component.html',
   styleUrls: ['./sessions.component.scss'],
 })
-export class SessionsComponent implements OnInit, AfterViewInit {
+export class SessionsComponent implements OnInit {
   @Input() id: number;
-
+  sessionId: number;
   sessions: Array<Session>;
   isLoaded = false;
   token = '';
   areAllSessionEnded: boolean;
   startedSessionId: number;
   isShowPresence = false;
+  isShowPresenceRaw = false;
   presenceList: Array<{
     id: number;
     username: string;
     email: string;
     presencePercentage: number;
   }>;
-
+  presenceChart: {
+    label: string;
+    borderColor: string;
+    data: Array<{ x: string; y: number }>;
+  };
   @ViewChild('barChart', { static: false }) barChart;
-
+  username: string;
   bars: any;
   colorArray: any;
   chartInterval: any;
@@ -43,27 +48,15 @@ export class SessionsComponent implements OnInit, AfterViewInit {
   ) {}
 
   createBarChart() {
+    console.log('createBarChart');
     this.bars = new Chart(this.barChart.nativeElement, {
-      type: 'bar',
-      data: {
-        labels: ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8'],
-        datasets: [
-          {
-            label: 'Viewers in millions',
-            data: [2.5, 3.8, 5, 6.9, 6.9, 7.5, 10, 17],
-            backgroundColor: 'rgb(38, 194, 129)', // array should have same number of elements as number of dataset
-            borderColor: 'rgb(38, 194, 129)', // array should have same number of elements as number of dataset
-            borderWidth: 1,
-          },
-        ],
-      },
+      type: 'line',
+      data: { datasets: [this.presenceChart] },
       options: {
         scales: {
-          yAxes: [
+          xAxes: [
             {
-              ticks: {
-                beginAtZero: true,
-              },
+              type: 'time',
             },
           ],
         },
@@ -74,13 +67,6 @@ export class SessionsComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.getAllSessions();
     this.getSection();
-
-    this.chartInterval = setInterval(() => {
-      if (this.barChart) {
-        clearInterval(this.chartInterval);
-        this.createBarChart();
-      }
-    }, 200);
   }
 
   getSection() {
@@ -202,6 +188,7 @@ export class SessionsComponent implements OnInit, AfterViewInit {
   async showPresence(sessionId: number) {
     const loading = await this.loadingController.create();
     await loading.present();
+    this.sessionId = sessionId;
     this.sessionsService
       .getPresenceList(sessionId)
       .subscribe(
@@ -214,7 +201,56 @@ export class SessionsComponent implements OnInit, AfterViewInit {
           }>
         ) => {
           this.isShowPresence = true;
+          this.isShowPresenceRaw = false;
           this.presenceList = resp ? resp : [];
+        }
+      )
+      .add(async () => {
+        await loading.dismiss();
+      });
+  }
+
+  async getPresenceChart(userId: number, username: string) {
+    const loading = await this.loadingController.create();
+    this.username = username;
+    await loading.present();
+    this.sessionsService
+      .getPresenceRaw(this.sessionId, userId)
+      .subscribe(
+        (
+          resp: Array<{
+            '@UUID': string;
+            id: number;
+            createdDate: string;
+            lastModifiedDate: string;
+          }>
+        ) => {
+          this.isShowPresence = false;
+          this.isShowPresenceRaw = true;
+          const presenceRaw = resp ? resp : [];
+          console.log('presenceRaw : ', presenceRaw);
+          this.presenceChart = {
+            label: 'Moments when the student was present',
+            borderColor: 'lightblue',
+            data: presenceRaw.map(
+              (element: {
+                '@UUID': string;
+                id: number;
+                createdDate: string;
+                lastModifiedDate: string;
+              }) => {
+                return { x: element.createdDate, y: 1 };
+              }
+            ),
+          };
+          console.log('presenceChart : ', this.presenceChart);
+
+          this.chartInterval = setInterval(() => {
+            if (this.barChart) {
+              clearInterval(this.chartInterval);
+              this.createBarChart();
+            }
+          }, 50);
         }
       )
       .add(async () => {

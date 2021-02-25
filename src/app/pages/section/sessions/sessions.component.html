@@ -32,7 +32,9 @@
       </ion-button>
     </div>
   </ion-card>
-  <ion-card *ngIf="sessions?.length > 0 && !isShowPresence">
+  <ion-card
+    *ngIf="sessions?.length > 0 && !isShowPresence && !isShowPresenceRaw"
+  >
     <ion-list>
       <ion-item class="ion-no-padding">
         <div class="list-row">
@@ -79,24 +81,23 @@
       </ion-item>
     </ion-list>
   </ion-card>
-  <div
-    *ngIf="isShowPresence"
-    style="
-      display: flex;
-      justify-content: flex-end;
-      justify-items: flex-end;
-      width: 100%;
-    "
-  >
-    <ion-button
-      (click)="isShowPresence = false"
-      color="danger"
-      style="margin-right: 10px"
+  <ion-card *ngIf="isShowPresence && !isShowPresenceRaw">
+    <div
+      style="
+        display: flex;
+        justify-content: flex-end;
+        justify-items: flex-end;
+        width: 100%;
+      "
     >
-      <ion-icon slot="icon-only" name="close"></ion-icon>
-    </ion-button>
-  </div>
-  <ion-card *ngIf="isShowPresence">
+      <ion-button
+        (click)="isShowPresence = false; isShowPresenceRaw = false"
+        color="danger"
+        style="margin-right: 10px; margin-top: 10px"
+      >
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </div>
     <ion-list *ngIf="presenceList.length > 0">
       <ion-item class="ion-no-padding">
         <div class="list-row">
@@ -105,7 +106,12 @@
           <ion-label class="item-col-label">Presence</ion-label>
         </div>
       </ion-item>
-      <ion-item class="ion-no-padding" *ngFor="let presence of presenceList">
+      <ion-item
+        class="ion-no-padding"
+        button
+        (click)="getPresenceChart(presence.id, presence.username)"
+        *ngFor="let presence of presenceList"
+      >
         <div class="list-row">
           <span class="item-col">{{ presence.username }}</span>
           <span class="item-col">
@@ -127,10 +133,27 @@
       </h3>
     </div>
   </ion-card>
-  <ion-card class="welcome-card">
+  <ion-card *ngIf="isShowPresenceRaw && !isShowPresence">
+    <div
+      style="
+        display: flex;
+        justify-content: flex-end;
+        justify-items: flex-end;
+        width: 100%;
+      "
+    >
+      <ion-button
+        (click)="isShowPresence = false; isShowPresenceRaw = false"
+        color="danger"
+        style="margin-right: 10px; margin-top: 10px"
+      >
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </div>
     <ion-card-header>
-      <ion-card-subtitle>Number of Viewers per season for</ion-card-subtitle>
-      <ion-card-title>Game of Thrones</ion-card-title>
+      <ion-card-title
+        >{{ this.username | titlecase }} Presence Statistics
+      </ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <canvas #barChart></canvas>
