@@ -9,14 +9,10 @@
     <ion-segment-button (click)="switchPage('students')">
       Students
     </ion-segment-button>
-    <ion-segment-button (click)="switchPage('statistics')">
-      Statistics
-    </ion-segment-button>
   </div>
   <div style="height: 100%">
     <app-main [id]="id" *ngIf="page === 'home'"></app-main>
     <app-students [id]="id" *ngIf="page === 'students'"></app-students>
-    <app-statistics *ngIf="page === 'statistics'"></app-statistics>
     <app-sessions [id]="id" *ngIf="page === 'sessions'"></app-sessions>
   </div>
 </div>

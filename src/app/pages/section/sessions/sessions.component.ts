@@ -186,6 +186,7 @@ export class SessionsComponent implements OnInit {
   }
 
   async showPresence(sessionId: number) {
+    console.log(sessionId);
     const loading = await this.loadingController.create();
     await loading.present();
     this.sessionId = sessionId;

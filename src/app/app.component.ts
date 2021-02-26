@@ -47,11 +47,6 @@ export class AppComponent {
               title: 'Profile',
               url: url,
             });
-          } else if (url.includes('class/statistics')) {
-            this.navBarService.topNavBarTitle.next({
-              title: 'Statistics',
-              url: url,
-            });
           } else if (url.includes('login')) {
             this.navBarService.topNavBarTitle.next({
               title: 'Log-in',
